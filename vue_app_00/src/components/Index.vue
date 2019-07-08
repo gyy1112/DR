@@ -1,7 +1,7 @@
 <template>
   <div>
-    <van-nav-bar title="Darry Ring" left-text="X" fixed>
-      <van-icon name="wap-home" slot="right" />
+    <van-nav-bar title="Darry Ring" left-text="X" fixed >
+      <van-icon name="wap-home" slot="right" @click="main"/>
       <van-icon name="bars" slot="right" />
     </van-nav-bar>
     <ul>
@@ -10,7 +10,7 @@
       </li>
       <li class="page2">
         <img src="../img/indexImg/p2_t.png">
-        <p>基于让爱情变的更美好的品牌使命<br />
+        <p>基于让爱情变的更美好的品牌使命<br />                                                   
         致力于对真爱唯一的传播与见证<br />
         <span>男士一生仅能定制一枚</span><br />
         赠予一生唯一真爱的人<br />
@@ -85,12 +85,12 @@
               <van-area value="110000" :area-list="areaList" @change="onChange" @confirm="show = false" @cancel="show = false" :columns-num="2"/>
             </van-popup>
          </van-cell-group>
-         <van-button type="primary" size="large">搜索</van-button>
+         <van-button type="primary" size="large" @click="link">搜索</van-button>
       </li>
     </ul>
     <van-tabbar v-model="active">
-      <van-tabbar-item name="service-o" icon="service-o">在线咨询</van-tabbar-item>
-      <van-tabbar-item name="phone-o" icon="phone-o">预约进店</van-tabbar-item>
+      <van-tabbar-item icon="service-o" @click="link">在线咨询</van-tabbar-item>
+      <van-tabbar-item name="phone-o" icon="phone-o" @click="link">预约进店</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
@@ -164,6 +164,12 @@ export default {
         areaName = areaName + value[i].name + ' '
       }
       this.carmodel = areaName
+    },
+    link(){
+      this.$router.push('/index/search/1')
+    },
+    main(){
+      this.$router.push('/main')
     }
   },
 }

@@ -10,10 +10,14 @@ Vue.use(MintUI)
 import Vant from 'vant';
 import 'vant/lib/index.css';
 Vue.use(Vant);
+// 导入 MUI 的样式
+import './lib/mui/css/mui.min.css'
+// 导入扩展图标样式
+import './lib/mui/css/icons-extra.css'
+// 引入axios
 import axios from "./axios";
 // 引入vuex
 import Vuex from 'vuex'
-import { stat } from 'fs';
 Vue.use(Vuex) 
 
 

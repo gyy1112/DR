@@ -8,7 +8,7 @@ var pool = mysql.createPool({
   user:"root",
   password:"",
   port:3306,
-  database:"xz",
+  database:"dr",
   connectionLimit:15
 })
 
@@ -28,3 +28,31 @@ server.use("/",express.static("/public"))
 
 server.listen(3000)
 
+server.get('/index/search/1',(req,res)=>{
+  console.log(111)
+  var id = req.query.id
+  var output = {
+    provice:[],
+    address:[]
+  }
+  var sql = `SELECT * FROM dr_provice`
+  pool.query(sql,(err,result)=>{
+    if(err) throw err;
+    output.provice = result
+    var sql = `SELECT * FROM dr_shopaddress WHERE spid = id`
+    pool.query(sql,(err,result)=>{
+      if(err) throw err;
+      output.address = result
+      res.send(output)
+      console.log(result)
+    })
+  })  
+})
+server.get('/main',(req,res)=>{
+  var sql = `SELECT * FROM dr_carousel`
+  pool.query(sql,(err,result)=>{
+    if(err) throw err;
+    console.log(result)
+    res.send(result)
+  })
+})
