@@ -15,7 +15,7 @@ export default new Router({
   routes: [
     {path:'/',redirect:'/index'},
     {path:'/index',component:Index},
-    {path:'/index/search/:id',component:IndexSearch},
+    {path:'/index/search',component:IndexSearch},
     {path:'/main',component:Main},
     {path:'/star',component:Star},
     {path:'/doughnut',component:Doughnut},

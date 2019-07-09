@@ -4,54 +4,112 @@
       <van-icon name="wap-home" slot="right" @click="onClickRight" />
       <van-icon name="bars" slot="right" />
     </van-nav-bar>
-    <div>
+    <div class="lwrapper" ref="lwrapper">
       <ul class="left">
-        <li  v-for="(item,i) of provice" :key="i" :data-id="item.id" @click="showads">{{item.provice}}<i v-show="true"></i></li>
+        <li @click="selectMenu(index,$event)" v-for="(item,i) of provice" :key="i">{{item.provice}}<i></i></li>
       </ul>
-    </div> 
-    <div> 
+    </div>
+    <div class="rwrapper" ref="rwrapper">
       <ul class="right">
-        <li v-for="(item,i) of lists" :key="i">
+        <li v-for="(item,i) of lists" :key="i" class="shoplist">
           <div>
             <h5><van-icon name="location-o" />当前选择：</h5>
             <h3>推荐店铺</h3>
             <div class="card">
-              <div><img src="../../img/shopImg/01.jpg"></div>
+              <div><img :src="simg"></div>
               <div class="shopname">
-                <span>{{lists[0].sname}}</span>
+                <span>{{item.sname}}</span>
                 <a href="#">立即预约</a>
               </div>
               <div class="address">
                 <van-icon name="location-o" />
-			{{lists[0].saddress}}
-    </div>  
+                {{item.saddress}}
+              </div>
+            </div> 
+          </div>     
+        </li>
+      </ul>          
+    </div>
   </div>
 </template>
 <script>
+import BScroll from 'better-scroll';
   export default {
     data() {
       return {
         lists:[],
+        simg:"",
         provice:[],
-        id:1
       }
     },
     created() {
+      this.getshoplist()
+    },
+    // computed: {
+    //   currentIndex(){
+    //       for( let i = 0;i<this.listHeight.length;i++ ){
+    //         let height1 = this.listHeight[i];
+    //         let height2 = this.listHeight[i+1];
+    //         //当遍历到listHeight最后一个元素的时候，height2的值为undefined,如果是
+    //         //最后一个元素的话!height2为真，后面就不需要判断了
+    //         if( !height2 || (this.scrollY >= height1 && this.scrollY<height2)){
+    //           return i;
+    //         }
+    //       }
+    //       //默认情况下是返回第一个元素
+    //       return 0;
+    //   }
+    // },
+    mounted() {
+      // 设置20ms的延迟
+      setTimeout(() => {
+          this._initScroll();
+      }, 20);
+      // 监听窗口改变重置高度
+      window.addEventListener('resize', () => {
+          this.height = window.innerHeight + 'px';
+      })
     },
     methods: {
+      selectMenu(index,event){
+        console.log(111)
+        let foodList = this.$refs.shoplist; 
+        let el = foodList[index];
+        this.foodsScroll.scrollToElement(el,300);                                       
+      },
+       _initScroll() {
+          this.menuScroll = new BScroll(this.$refs.lwrapper,{
+        });
+        this.foodsScroll = new BScroll(this.$refs.rwrapper,{
+        });
+      },
+    //  _calculateHeight(){
+    //       let foodList = this.$refs.shoplist; //获取到所有的ref='foodList'的DOM元素
+    //       let height = 0;
+    //       this.listHeight.push(height); //第一个元素的高度是0
+    //       for( let i =0;i<foodList.length;i++ ){
+    //         let item = foodList[i];
+    //         height += item.clientHeight;//通过原生DOM中的js获取到li的高度，并且累加
+    //         this.listHeight.push(height);
+    //       } 
+    //   },
       onClickLeft(){
         this.$router.go(-1)
       },
       onClickRight(){
         this.$router.push('/main')
       },
-      // getshoplist(){
-      //   this.axios.get("index/search/"+this.id,{params:{id:this.id}}).then(result=>{
-      //     console.log(result.data.provice)
-      //     this.provice = result.data.provice
-      //     this.lists = result.data.address
-      //   })
-      // },
+      getshoplist(){
+        this.axios.get("index/search").then(result=>{
+          //console.log(result.data)
+          this.provice = result.data.provices
+          this.lists = result.data.address
+         
+          this.simg=require(this.lists[1].simg)
+          console.log(this.simg)
+        
+        })
+      },
     },
   }
 </script>
@@ -80,17 +138,21 @@
     margin-right:0;
     line-height:55px;
   }
-  /*
-  .trees{
-    width:100%;
-    display:flex;
-    background:#fff;
-  }
-  .trees .left{
+  .lwrapper{
     width:25%;
     overflow:hidden;
+    height:623px;
+    background:#fff;
+    float:left;
   }
-  .trees .left li{
+  .rwrapper{
+    width:75%;
+    overflow:hidden;
+    height:623px;
+    background:#fff;
+    float:right;
+  }
+  .lwrapper .left li{
     height:55px; 
     font-size: 15px;
     color:#222;
@@ -100,7 +162,7 @@
     border-bottom:1px solid #eee;
     border-right:1px solid #eee;
   }
-  .trees .left i{
+  .lwrapper .left i.current{
     position:absolute;
     width:6px;
     height:18px;
@@ -109,14 +171,11 @@
     top:18px;
     left:15px;
   }
-  .trees .right{
-    width:75%;
-  }
-  .trees .right h5{
+  .rwrapper .right h5{
     color:#a57a68;
     margin:20px 0 0 15px;
   }
-  .trees .right h3{
+  .rwrapper .right h3{
     margin:17px 0 0 15px;
     color:#222;
     font-size:16px;
@@ -151,5 +210,4 @@
     margin-top:5px;
     color:#888;
   }
-  */
 </style>

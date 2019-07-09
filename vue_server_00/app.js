@@ -28,9 +28,8 @@ server.use("/",express.static("/public"))
 
 server.listen(3000)
 
-server.get('/index/search/1',(req,res)=>{
+server.get('/index/search',(req,res)=>{
   console.log(111)
-  var id = req.query.id
   var output = {
     provice:[],
     address:[]
@@ -39,12 +38,11 @@ server.get('/index/search/1',(req,res)=>{
   pool.query(sql,(err,result)=>{
     if(err) throw err;
     output.provice = result
-    var sql = `SELECT * FROM dr_shopaddress WHERE spid = id`
+    var sql = `SELECT * FROM dr_shopaddress`
     pool.query(sql,(err,result)=>{
       if(err) throw err;
       output.address = result
       res.send(output)
-      console.log(result)
     })
   })  
 })

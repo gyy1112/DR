@@ -86,5 +86,5 @@ CREATE TABLE dr_carousel(
 );
 
 INSERT INTO dr_carousel VALUES
-(NULL,'../img/mainImg/carousel1.jpg'),
-(NULL,'../img/mainImg/carousel2.jpg');
+(NULL,'carousel1.jpg'),
+(NULL,'carousel2.jpg');

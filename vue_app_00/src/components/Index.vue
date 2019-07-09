@@ -5,19 +5,19 @@
       <van-icon name="bars" slot="right" />
     </van-nav-bar>
     <ul>
-      <li class="page1">
+      <li class="list1">
         <img src="../img/indexImg/banner.jpg" class="banner">
       </li>
-      <li class="page2">
+      <li class="list2">
         <img src="../img/indexImg/p2_t.png">
-        <p>基于让爱情变的更美好的品牌使命<br />                                                   
+        <p>基于让爱情变的更美好的品牌使命<br />
         致力于对真爱唯一的传播与见证<br />
         <span>男士一生仅能定制一枚</span><br />
         赠予一生唯一真爱的人<br />
         在求婚的那一刻，许下对爱一生的承诺</p>
         <img src="../img/indexImg/p2_b.jpg">
       </li>
-      <li class="page3">
+      <li class="list3">
         <img src="../img/indexImg/p3_t.png" class="page3-t">
         <p>
           每一枚DR求婚钻戒背后，都有一个相爱一生的故事。<br>
@@ -35,7 +35,7 @@
           </mt-swipe-item>
         </mt-swipe>
       </li>
-      <li class="page4">
+      <li class="list4">
         <img src="../img/indexImg/p4_t.png" class="page3-t">
         <mt-swipe :auto="3000">
           <mt-swipe-item>
@@ -52,7 +52,7 @@
           </mt-swipe-item>
         </mt-swipe>
       </li>
-      <li class="page5" >
+      <li class="list5" >
         <img src="../img/indexImg/p4_2t.png" class="page3-t">
         <mt-swipe :auto="4000" :show-indicators="false">
           <mt-swipe-item>
@@ -66,7 +66,7 @@
           </mt-swipe-item>
         </mt-swipe>
       </li>
-      <li class="page6">
+      <li class="list6">
         <van-button type="info" class="btn">联系在线客服</van-button>
         <p>
         我需要看实际试戴效果<br>
@@ -76,7 +76,7 @@
         <img src="../img/indexImg/arr.png" class="more">
         </p>
       </li>
-      <li class="page7">
+      <li class="list7">
         <h3>探索最近的DR真爱体验店</h3>
         <p>DR真爱体验店遍布全国，提供钻戒试戴与求婚服务。</p>
          <van-cell-group>
@@ -166,7 +166,7 @@ export default {
       this.carmodel = areaName
     },
     link(){
-      this.$router.push('/index/search/1')
+      this.$router.push('/index/search')
     },
     main(){
       this.$router.push('/main')
@@ -193,37 +193,37 @@ export default {
   ul{
     padding-top:44px;
   }
-  ul li img{
+  ul img{
     width:100%;
-  }
-  .page1{
-    display:flex;
   }
   .banner{
     width:100%;
   }
-  .page2{
-    background-color:#f4eeee;
+  .list2{
+  background-color:#f4eeee;
   }
-  .page2 img{
+  .list2 img{
     padding: 20px 0;  
   }
-  .page2 p,.page3 p,.page6 p{
+  .list2 p,.list3 p,.list6 p{
     font: 14px simsun;
     color:#2a0305;
     line-height:30px;
     text-align:center;
   }
-  .page2 p span{
+  .list2 p span{
     color:#b47455;
   }
-  .page3{
-    background-image:radial-gradient(#f3e6dd,#dacdc3)
+  .list3{
+    background-image:radial-gradient(#f3e6dd,#dacdc3);
   }
   .page3-t{
     padding:20px 0;
   }
-  .page3 image[lazy=loading]{
+  .list3 img{
+    width:100%;
+  }
+  .list4 .page3-t{
     width:100%;
   }
   .mint-swipe{
@@ -231,36 +231,39 @@ export default {
     margin-top:30px;
     padding-bottom:40px;
   }
-  .page4 img,.page5 img{
+  .list4 .mint-swipe img,.list5 img{
     width:80%;
     margin-left:10%;
   }
-  .page4,.page5,.page6{
+  .list4,.list5,.list6{
     background-image:radial-gradient(#fff,#f7ede5)
   }
-  .page6 p {
+  .list6 p {
     margin-bottom:0;
   }
-  .page6 .btn{
+  .list6 .btn{
     margin-left:35%;
   }
-  .page6 img.more{
+  .list6 img.more{
     width:40px;
   }
-  .page7 {
+  .list7 {
     background-image:radial-gradient(#fff,#cec2ba);
-    padding-top:120px;
+    padding-top:80px;
     padding-bottom:80px;
   }
-  .page7 h3{
+  .list7 h3{
     font:18px simsun;
     text-align:center;
-    font-weight:700;
-    margin-bottom:0;
+    font-weight:600;
+    margin-bottom:10px;
+    color:#000;
   }
-  .page7 p{
+  .list7 p{
     font:12px simsun;
     text-align:center;
+    margin-bottom:10px;
+    color:#000;
   }
   .van-button--large{
     margin-top:20px;
