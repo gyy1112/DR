@@ -10,13 +10,13 @@
       </ul>
     </div>
     <div class="rwrapper" ref="rwrapper">
+      <h5><van-icon name="location-o" />当前选择：</h5>
+      <h3>推荐店铺</h3>
       <ul class="right">
         <li v-for="(item,i) of lists" :key="i" class="shoplist">
           <div>
-            <h5><van-icon name="location-o" />当前选择：</h5>
-            <h3>推荐店铺</h3>
             <div class="card">
-              <div><img :src="simg"></div>
+              <div><img src=""></div>
               <div class="shopname">
                 <span>{{item.sname}}</span>
                 <a href="#">立即预约</a>
@@ -38,7 +38,6 @@ import BScroll from 'better-scroll';
     data() {
       return {
         lists:[],
-        simg:"",
         provice:[],
       }
     },
@@ -102,10 +101,9 @@ import BScroll from 'better-scroll';
       getshoplist(){
         this.axios.get("index/search").then(result=>{
           //console.log(result.data)
-          this.provice = result.data.provices
+          this.provice = result.data.provice
+          console.log(result.data)
           this.lists = result.data.address
-         
-          this.simg=require(this.lists[1].simg)
           console.log(this.simg)
         
         })
@@ -171,15 +169,18 @@ import BScroll from 'better-scroll';
     top:18px;
     left:15px;
   }
-  .rwrapper .right h5{
+  .rwrapper h5{
     color:#a57a68;
-    margin:20px 0 0 15px;
+    margin:20px 0 0px 15px;
   }
-  .rwrapper .right h3{
-    margin:17px 0 0 15px;
+  .rwrapper h3{
+    margin:17px 0 0px 15px;
     color:#222;
     font-size:16px;
     font-weight:400;
+  }
+  .right{
+    padding-top:60px;
   }
   .card{
     width:100%;
