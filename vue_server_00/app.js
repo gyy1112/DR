@@ -54,3 +54,41 @@ server.get('/main',(req,res)=>{
     res.send(result)
   })
 })
+server.get('/star',(req,res)=>{
+  var sql = `SELECT * FROM dr_starinfo`
+  pool.query(sql,(err,result)=>{
+    if(err) throw err;
+    console.log(result)
+    res.send(result)
+  })
+})
+server.get('/star/getcomments',(req,res)=>{
+  var id = req.query.id
+  var pageindex = req.query.pageindex
+  var ps = 5
+  var offset = (pageindex-1)*ps
+  var sql = `SELECT * FROM dr_getcmts LIMIT ?,?`
+  pool.query(sql,[offset,ps,id],(err,result)=>{
+    if(err) throw err;
+    console.log(result)
+    res.send(result)
+  })
+})
+server.get('/star/postcomment',(req,res)=>{
+  var id = req.query.id
+  var sql = `UPDATE SET user_name,add_time,content WHERE id = ?`
+  pool.query(sql,[id],(err,result)=>{
+    if(err) throw err;
+    console.log(result)
+    res.send(result)
+  })
+})
+server.get('/star/starinfo',(req,res)=>{
+  var id = req.query.id
+  var sql = `SELECT * FROM dr_stardetail WHERE id = ?`
+  pool.query(sql,[id],(err,result)=>{
+    if(err) throw err;
+    console.log(result)
+    res.send(result)
+  })
+})

@@ -10,24 +10,27 @@
       <div class="line"></div>
     </div>
     <ul class="starinfo">
-      <li>
-        <div class="mui-card-header mui-card-media">
-	        <img src="" />
-	        <div class="mui-media-body">
-		      小M
-		      <p>发表于 2016-06-30 15:30</p>
-	        </div>
-        </div>
+      <li v-for="(item,i) of stars" :key="i">
+          <router-link :to="'/star/starinfo/'+item.id">
+            <img :src="item.img" />
+            <div>{{item.title}}</div>
+            <p>{{item.subtitle}}</p>
+          </router-link>
       </li>
     </ul>
+    <div class="starbottom">没有更多了</div>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      
+      stars:[],
+      starScroll:''
     }
+  },
+  created() {
+    this.getstarlist()
   },
   methods: {
     onClickLeft(){
@@ -35,6 +38,12 @@ export default {
     },
     onClickRight(){
       this.$router.push('/main')
+    },
+    getstarlist(){
+      this.axios.get("star").then(result=>{
+        console.log(result.data)
+        this.stars = result.data
+      })
     },
   },
 }
@@ -99,6 +108,37 @@ export default {
   }
   .starinfo li{
     width:100%;
-    padding-bottom:28px;
+    margin-bottom:10px;
+  }
+  .starinfo li img{
+    display:block;
+    width:100%;
+  }
+  .starinfo li div{
+    padding:20px 10px 0 10px;
+    font-size:16px;
+    color: #222;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    background:#fff;
+    box-sizing:border-box;
+    text-align:center;
+  }
+  .starinfo li p{
+    background:#fff;
+    padding: 10px;
+    font-size: 12px;
+    color: #888;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align:center;
+  }
+  .starbottom{
+    padding:20px 0;
+    font:12px 'yehei';
+    text-align:center;
+    color:#888;
   }
 </style>

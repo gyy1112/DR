@@ -10,13 +10,11 @@
       </ul>
     </div>
     <div class="rwrapper" ref="rwrapper">
-      <h5><van-icon name="location-o" />当前选择：</h5>
-      <h3>推荐店铺</h3>
       <ul class="right">
         <li v-for="(item,i) of lists" :key="i" class="shoplist">
           <div>
             <div class="card">
-              <div><img src=""></div>
+              <div><img :src="item.simg"></div>
               <div class="shopname">
                 <span>{{item.sname}}</span>
                 <a href="#">立即预约</a>
@@ -28,7 +26,11 @@
             </div> 
           </div>     
         </li>
-      </ul>          
+      </ul>  
+      <div class="tj">
+        <h5><van-icon name="location-o" />当前选择：</h5>
+        <h3>推荐店铺</h3>
+      </div>        
     </div>
   </div>
 </template>
@@ -39,26 +41,29 @@ import BScroll from 'better-scroll';
       return {
         lists:[],
         provice:[],
+        listHeight:[],
+        menuScroll:'',
+        foodsScroll:''
       }
     },
     created() {
       this.getshoplist()
     },
-    // computed: {
-    //   currentIndex(){
-    //       for( let i = 0;i<this.listHeight.length;i++ ){
-    //         let height1 = this.listHeight[i];
-    //         let height2 = this.listHeight[i+1];
-    //         //当遍历到listHeight最后一个元素的时候，height2的值为undefined,如果是
-    //         //最后一个元素的话!height2为真，后面就不需要判断了
-    //         if( !height2 || (this.scrollY >= height1 && this.scrollY<height2)){
-    //           return i;
-    //         }
-    //       }
-    //       //默认情况下是返回第一个元素
-    //       return 0;
-    //   }
-    // },
+    computed: {
+      currentIndex(){
+          for( let i = 0;i<this.listHeight.length;i++ ){
+            let height1 = this.listHeight[i];
+            let height2 = this.listHeight[i+1];
+            //当遍历到listHeight最后一个元素的时候，height2的值为undefined,如果是
+            //最后一个元素的话!height2为真，后面就不需要判断了
+            if( !height2 || (this.scrollY >= height1 && this.scrollY<height2)){
+              return i;
+            }
+          }
+          //默认情况下是返回第一个元素
+          return 0;
+      }
+    },
     mounted() {
       // 设置20ms的延迟
       setTimeout(() => {
@@ -74,24 +79,26 @@ import BScroll from 'better-scroll';
         console.log(111)
         let foodList = this.$refs.shoplist; 
         let el = foodList[index];
-        this.foodsScroll.scrollToElement(el,300);                                       
+        this.foodsScroll.scrollToElement(el,300);
       },
        _initScroll() {
           this.menuScroll = new BScroll(this.$refs.lwrapper,{
+            click:true
         });
         this.foodsScroll = new BScroll(this.$refs.rwrapper,{
+            click:true
         });
       },
-    //  _calculateHeight(){
-    //       let foodList = this.$refs.shoplist; //获取到所有的ref='foodList'的DOM元素
-    //       let height = 0;
-    //       this.listHeight.push(height); //第一个元素的高度是0
-    //       for( let i =0;i<foodList.length;i++ ){
-    //         let item = foodList[i];
-    //         height += item.clientHeight;//通过原生DOM中的js获取到li的高度，并且累加
-    //         this.listHeight.push(height);
-    //       } 
-    //   },
+     _calculateHeight(){
+          let foodList = this.$refs.shoplist; //获取到所有的ref='foodList'的DOM元素
+          let height = 0;
+          this.listHeight.push(height); //第一个元素的高度是0
+          for( let i =0;i<foodList.length;i++ ){
+            let item = foodList[i];
+            height += item.clientHeight;//通过原生DOM中的js获取到li的高度，并且累加
+            this.listHeight.push(height);
+          } 
+      },
       onClickLeft(){
         this.$router.go(-1)
       },
@@ -104,8 +111,6 @@ import BScroll from 'better-scroll';
           this.provice = result.data.provice
           console.log(result.data)
           this.lists = result.data.address
-          console.log(this.simg)
-        
         })
       },
     },
@@ -150,6 +155,13 @@ import BScroll from 'better-scroll';
     background:#fff;
     float:right;
   }
+  .tj{
+    position:absolute;
+    top:40px;
+  }
+  .right{
+    padding-top:60px;
+  }
   .lwrapper .left li{
     height:55px; 
     font-size: 15px;
@@ -171,16 +183,13 @@ import BScroll from 'better-scroll';
   }
   .rwrapper h5{
     color:#a57a68;
-    margin:20px 0 0px 15px;
+    margin:20px 0 0 15px;
   }
   .rwrapper h3{
-    margin:17px 0 0px 15px;
+    margin:17px 0 0 15px;
     color:#222;
     font-size:16px;
     font-weight:400;
-  }
-  .right{
-    padding-top:60px;
   }
   .card{
     width:100%;

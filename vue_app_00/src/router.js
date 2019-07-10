@@ -5,6 +5,7 @@ import Index from './components/Index.vue'
 import IndexSearch from './components/index/IndexSearch.vue'
 import Main from './components/Main.vue'
 import Star from './components/Star.vue'
+import StarInfo from './components/star/StarInfo.vue'
 import Doughnut from './components/Doughnut.vue'
 import Shopcart from './components/Shopcart.vue'
 import My from './components/My.vue'
@@ -18,6 +19,7 @@ export default new Router({
     {path:'/index/search',component:IndexSearch},
     {path:'/main',component:Main},
     {path:'/star',component:Star},
+    {path:'/star/starinfo/:id',component:StarInfo},
     {path:'/doughnut',component:Doughnut},
     {path:'/shopcart',component:Shopcart},
     {path:'/my',component:My},

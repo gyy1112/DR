@@ -7,11 +7,8 @@
     </div>
     <div class="lunbo">
     <mt-swipe :auto="4000">
-      <mt-swipe-item >
-        <img :src="require('../img/mainImg/carousel1.jpg')" alt="">
-      </mt-swipe-item>
-      <mt-swipe-item >
-        <img :src="require('../img/mainImg/carousel2.jpg')" alt="">
+      <mt-swipe-item v-for="(item,i) of lunbotuList" :key="i">
+        <img :src="item.img" alt="">
       </mt-swipe-item>
     </mt-swipe>
     </div>
