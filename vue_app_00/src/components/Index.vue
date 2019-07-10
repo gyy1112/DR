@@ -6,63 +6,63 @@
     </van-nav-bar>
     <ul>
       <li class="list1">
-        <img src="../img/indexImg/banner.jpg" class="banner">
+        <img src="../../public/img/indexImg/banner.jpg" class="banner">
       </li>
       <li class="list2">
-        <img src="../img/indexImg/p2_t.png">
+        <img src="../../public/img/indexImg/p2_t.png">
         <p>基于让爱情变的更美好的品牌使命<br />
         致力于对真爱唯一的传播与见证<br />
         <span>男士一生仅能定制一枚</span><br />
         赠予一生唯一真爱的人<br />
         在求婚的那一刻，许下对爱一生的承诺</p>
-        <img src="../img/indexImg/p2_b.jpg">
+        <img src="../../public/img/indexImg/p2_b.jpg">
       </li>
       <li class="list3">
-        <img src="../img/indexImg/p3_t.png" class="page3-t">
+        <img src="../../public/img/indexImg/p3_t.png" class="page3-t">
         <p>
           每一枚DR求婚钻戒背后，都有一个相爱一生的故事。<br>
 					期待我们也能见证您一生唯一的爱情！
         </p>
         <mt-swipe :auto="2000">
           <mt-swipe-item>
-            <img src="../img/indexImg/p3_1.jpg">
+            <img src="../../public/img/indexImg/p3_1.jpg">
           </mt-swipe-item>
           <mt-swipe-item>
-            <img src="../img/indexImg/p3_2.jpg">
+            <img src="../../public/img/indexImg/p3_2.jpg">
           </mt-swipe-item>
           <mt-swipe-item>
-            <img src="../img/indexImg/p3_3.jpg">
+            <img src="../../public/img/indexImg/p3_3.jpg">
           </mt-swipe-item>
         </mt-swipe>
       </li>
       <li class="list4">
-        <img src="../img/indexImg/p4_t.png" class="page3-t">
+        <img src="../../public/img/indexImg/p4_t.png" class="page3-t">
         <mt-swipe :auto="3000">
           <mt-swipe-item>
-            <img src="../img/indexImg/p4_1_1.jpg">
+            <img src="../../public/img/indexImg/p4_1_1.jpg">
           </mt-swipe-item>
           <mt-swipe-item>
-            <img src="../img/indexImg/p4_1_2.jpg">
+            <img src="../../public/img/indexImg/p4_1_2.jpg">
           </mt-swipe-item>
           <mt-swipe-item>
-            <img src="../img/indexImg/p4_1_3.jpg">
+            <img src="../../public/img/indexImg/p4_1_3.jpg">
           </mt-swipe-item>
           <mt-swipe-item>
-            <img src="../img/indexImg/p4_1_4.jpg">
+            <img src="../../public/img/indexImg/p4_1_4.jpg">
           </mt-swipe-item>
         </mt-swipe>
       </li>
       <li class="list5" >
-        <img src="../img/indexImg/p4_2t.png" class="page3-t">
+        <img src="../../public/img/indexImg/p4_2t.png" class="page3-t">
         <mt-swipe :auto="4000" :show-indicators="false">
           <mt-swipe-item>
-            <img src="../img/indexImg/p4_2_1.jpg">
+            <img src="../../public/img/indexImg/p4_2_1.jpg">
           </mt-swipe-item>
           <mt-swipe-item>
-            <img src="../img/indexImg/p4_2_2.jpg">
+            <img src="../../public/img/indexImg/p4_2_2.jpg">
           </mt-swipe-item>
           <mt-swipe-item>
-            <img src="../img/indexImg/p4_2_3.jpg">
+            <img src="../../public/img/indexImg/p4_2_3.jpg">
           </mt-swipe-item>
         </mt-swipe>
       </li>
@@ -73,7 +73,7 @@
         我还想要寻找浪漫的求婚场所<br>
         我想体验爱情的仪式感<br>
         ……<br>
-        <img src="../img/indexImg/arr.png" class="more">
+        <img src="../../public/img/indexImg/arr.png" class="more">
         </p>
       </li>
       <li class="list7">

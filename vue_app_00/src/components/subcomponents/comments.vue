@@ -31,9 +31,7 @@ export default {
   },
   methods: {
     getComments() {
-      this.axios.get("star/getcomments/" + this.id + "?pageindex=" + this.pageIndex,{params:{
-        id:this.id,pageIndex:this.pageIndex
-      }}).then(result => {
+      this.axios.get("star/getcomments/" + this.id + "?pageindex=" + this.pageIndex).then(result => {
             this.comments = this.comments.concat(result.body.message);
       });
     },

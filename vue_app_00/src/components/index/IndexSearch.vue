@@ -6,7 +6,7 @@
     </van-nav-bar>
     <div class="lwrapper" ref="lwrapper">
       <ul class="left">
-        <li @click="selectMenu(index,$event)" v-for="(item,i) of provice" :key="i">{{item.provice}}<i></i></li>
+        <li :class="{'current':currentIndex === index}" @click="selectMenu(index,$event)" v-for="(item,i) of provice" :key="i">{{item.provice}}<i></i></li>
       </ul>
     </div>
     <div class="rwrapper" ref="rwrapper">
@@ -42,8 +42,7 @@ import BScroll from 'better-scroll';
         lists:[],
         provice:[],
         listHeight:[],
-        menuScroll:'',
-        foodsScroll:''
+        scrollY:0
       }
     },
     created() {
@@ -76,9 +75,12 @@ import BScroll from 'better-scroll';
     },
     methods: {
       selectMenu(index,event){
+        if(!event._constructed) {
+          return ;
+        }
         console.log(111)
         let foodList = this.$refs.shoplist; 
-        let el = foodList[index];
+        let el = foodList[index]; 
         this.foodsScroll.scrollToElement(el,300);
       },
        _initScroll() {
@@ -88,6 +90,7 @@ import BScroll from 'better-scroll';
         this.foodsScroll = new BScroll(this.$refs.rwrapper,{
             click:true
         });
+        this.$nextTick(()=>{this._initScroll();})
       },
      _calculateHeight(){
           let foodList = this.$refs.shoplist; //获取到所有的ref='foodList'的DOM元素
@@ -220,4 +223,11 @@ import BScroll from 'better-scroll';
     margin-top:5px;
     color:#888;
   }
+  .current{
+    position: relative;
+    z-index: 10;
+    margin-top: -1px;
+    background: #fff;
+    font-weight: 700;
+  }   
 </style>

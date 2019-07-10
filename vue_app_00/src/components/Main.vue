@@ -2,7 +2,7 @@
   <div>
     <div class="nav">
       <span class="left"><van-icon name="shop-o" />武汉市</span>
-      <img src="../img/indexImg/logo2.png">
+      <img src="../../public/img/indexImg/logo2.png">
       <span class="right"><van-icon name="bars" /></span>
     </div>
     <div class="lunbo">
@@ -14,38 +14,38 @@
     </div>
     <ul>
       <li class="page1">
-        <img src="../img/mainImg/11.jpg">
+        <img src="../../public/img/mainImg/11.jpg">
         <a href="javascript:;">真爱查询</a>
       </li>
       <li class="page2">
-        <img src="../img/mainImg/08.jpg">
+        <img src="../../public/img/mainImg/08.jpg">
         <div class="p1">全球真爱体验店</div>
         <div class="p2">情侣首次预约到店领取限量精美礼品</div>
         <router-link to="/index/search">立即预约</router-link>
       </li>
       <li class="page3">
-        <img src="../img/mainImg/09.jpg">
+        <img src="../../public/img/mainImg/09.jpg">
       </li>
       <li class="page4">
-        <img src="../img/mainImg/03.jpg">
-        <img src="../img/mainImg/02.jpg">
-        <img src="../img/mainImg/01.jpg">
+        <img src="../../public/img/mainImg/03.jpg">
+        <img src="../../public/img/mainImg/02.jpg">
+        <img src="../../public/img/mainImg/01.jpg">
       </li>
       <li class="page5">
-        <img src="../img/mainImg/07.jpg">
-        <img src="../img/mainImg/05.jpg">
-        <img src="../img/mainImg/06.jpg">
+        <img src="../../public/img/mainImg/07.jpg">
+        <img src="../../public/img/mainImg/05.jpg">
+        <img src="../../public/img/mainImg/06.jpg">
       </li>
       <li class="page6">
         <van-divider :style="{ color: '#222', borderColor: '#222', padding: '0 15px', fontSize: '17px' }">探索DR
         </van-divider>
-        <img src="../img/mainImg/carousel1.jpg">
+        <img src="../../public/img/mainImg/carousel1.jpg">
       </li>
       <li class="page7">
         <van-divider :style="{ color: '#222', borderColor: '#222', padding: '0 15px', fontSize: '17px' }">真爱明星
         </van-divider>
-        <img src="../img/mainImg/04.jpg" class="img1">
-        <img src="../img/mainImg/10.jpg">
+        <img src="../../public/img/mainImg/04.jpg" class="img1">
+        <img src="../../public/img/mainImg/10.jpg">
         <a href="javascript:;" class="a1">DR粉丝故事</a>
         <a href="javascript:;" class="a2">DR活动专题</a>
         <div>已经到底了</div>
