@@ -1,0 +1,10 @@
+.van-tab{
+  color:#333;
+}
+.van-tab-active{
+  color:#a57a68;
+  font-size: 12px;
+}
+.van-tabs__line{
+  color:#a57a68;
+}

@@ -14,6 +14,8 @@ Vue.use(Vant);
 import './lib/mui/css/mui.min.css'
 // 导入扩展图标样式
 import './lib/mui/css/icons-extra.css'
+// 引入全局样式
+import './assets/reset.css'
 // 导入格式化时间的插件
 import moment from 'moment'
 // 定义全局的过滤器

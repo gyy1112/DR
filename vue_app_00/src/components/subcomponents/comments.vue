@@ -10,7 +10,7 @@
           第{{ i+1 }}楼&nbsp;&nbsp;用户：{{ item.user_name }}&nbsp;&nbsp;发表时间：{{ item.add_time | dateFormat }}
         </div>
         <div class="cmt-body">
-          {{ item.content === 'undefined' ? '此用户很懒，什么都没说': item.content }}
+          {{ item.content == 'undefined' ? '此用户很懒，什么都没说': item.content }}
         </div>
       </div>
     </div>
@@ -31,8 +31,10 @@ export default {
   },
   methods: {
     getComments() {
-      this.axios.get("star/getcomments/" + this.id + "?pageindex=" + this.pageIndex).then(result => {
-            this.comments = this.comments.concat(result.body.message);
+      this.axios.get("star/getcomments/",{params:{
+        id:this.id,pageindex:this.pageIndex
+      }}).then(result => {
+            this.comments = this.comments.concat(result.data);
       });
     },
     getMore() {
@@ -43,7 +45,10 @@ export default {
       if (this.msg.trim().length === 0) {
         return Toast("评论内容不能为空！");
       }
-      this.axios.post("star/postcomment/" + this.$route.params.id, {params:{
+      this.axios.post("star/postcomment/",{params:{
+          id:this.$route.params.id,
+          user_name: "匿名用户",
+          add_time: Date.now(),
           content: this.msg.trim()}
       }).then(function(result) {
             var cmt = {
@@ -81,5 +86,6 @@ export default {
 .cmt-container .cmt-list .cmt-body {
   line-height: 35px;
   text-indent: 2em;
+  font-size:14px;
 }
 </style>

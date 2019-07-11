@@ -4,33 +4,37 @@
       <van-icon name="wap-home" slot="right" @click="onClickRight" />
       <van-icon name="bars" slot="right" />
     </van-nav-bar>
-    <div class="lwrapper" ref="lwrapper">
+    <div class="menu-wrapper" ref="menuWrapper">
       <ul class="left">
-        <li :class="{'current':currentIndex === index}" @click="selectMenu(index,$event)" v-for="(item,i) of provice" :key="i">{{item.provice}}<i></i></li>
+        <li :class="{'current':currentIndex === index}" @click="selectMenu(index)" v-for="(item,index) in provice" :key="index">{{item.provice}}</li>
       </ul>
     </div>
-    <div class="rwrapper" ref="rwrapper">
-      <ul class="right">
-        <li v-for="(item,i) of lists" :key="i" class="shoplist">
-          <div>
-            <div class="card">
-              <div><img :src="item.simg"></div>
-              <div class="shopname">
-                <span>{{item.sname}}</span>
-                <a href="#">立即预约</a>
-              </div>
-              <div class="address">
-                <van-icon name="location-o" />
-                {{item.saddress}}
-              </div>
-            </div> 
-          </div>     
+    <div class="food-wrapper" ref="foodWrapper">
+      <ul>
+        <li class="food-list food-list-hook">
+          <div class="tj">
+          <h5><van-icon name="location-o" />当前选择：{{provice[currentIndex].provice}}</h5>
+          <h3>推荐店铺</h3>
+          </div>
+          <ul class="right">
+            <li v-for="(item,i) of shopstores" :key="i" class="food-item border-1px">
+              <div>
+                <div class="card">
+                  <div><img :src="item.simg"></div>
+                  <div class="shopname">
+                    <span>{{item.sname}}</span>
+                    <a href="#">立即预约</a>
+                  </div>
+                  <div class="address">
+                    <van-icon name="location-o" />
+                    {{item.saddress}}
+                  </div>
+                </div> 
+              </div>     
+            </li>
+          </ul>  
         </li>
-      </ul>  
-      <div class="tj">
-        <h5><van-icon name="location-o" />当前选择：</h5>
-        <h3>推荐店铺</h3>
-      </div>        
+      </ul>
     </div>
   </div>
 </template>
@@ -40,67 +44,33 @@ import BScroll from 'better-scroll';
     data() {
       return {
         lists:[],
-        provice:[],
-        listHeight:[],
-        scrollY:0
+        provice:[{provice:'推荐'}],
+        currentIndex:0,
+        shopstores:[
+          {simg:'http://127.0.0.1:8080/img/shopImg/01.jpg',sname:'广州-中信广场店',saddress:'广东省广州市天河区天河北路233号中信广场中天购物城商场134-135单元（林和西地铁站 D出口）'},
+          {simg:'http://127.0.0.1:8080/img/shopImg/02.jpg',sname:'深圳-龙岗万科广场店',saddress:'广东省深圳市龙岗区龙翔大道7188号 万科广场 L1-22'},
+          {simg:'http://127.0.0.1:8080/img/shopImg/03.jpg',sname:'南京-华采天地店',saddress:'南京市江东中路258号华采天地购物中心1F-03铺'}
+        ],
       }
     },
     created() {
       this.getshoplist()
     },
-    computed: {
-      currentIndex(){
-          for( let i = 0;i<this.listHeight.length;i++ ){
-            let height1 = this.listHeight[i];
-            let height2 = this.listHeight[i+1];
-            //当遍历到listHeight最后一个元素的时候，height2的值为undefined,如果是
-            //最后一个元素的话!height2为真，后面就不需要判断了
-            if( !height2 || (this.scrollY >= height1 && this.scrollY<height2)){
-              return i;
-            }
-          }
-          //默认情况下是返回第一个元素
-          return 0;
-      }
-    },
-    mounted() {
-      // 设置20ms的延迟
-      setTimeout(() => {
-          this._initScroll();
-      }, 20);
-      // 监听窗口改变重置高度
-      window.addEventListener('resize', () => {
-          this.height = window.innerHeight + 'px';
-      })
-    },
     methods: {
-      selectMenu(index,event){
-        if(!event._constructed) {
-          return ;
-        }
-        console.log(111)
-        let foodList = this.$refs.shoplist; 
-        let el = foodList[index]; 
-        this.foodsScroll.scrollToElement(el,300);
+      selectMenu(index){
+        this.currentIndex = index
+        this.axios.get('shopstore',{params:{id:this.currentIndex+1}}).then(result=>{
+          console.log(result.data)
+          this.shopstores = result.data
+        })
       },
-       _initScroll() {
-          this.menuScroll = new BScroll(this.$refs.lwrapper,{
-            click:true
+      _initScroll() {
+        this.menuScroll = new BScroll(this.$refs.menuWrapper,{
+          click:true   
         });
-        this.foodsScroll = new BScroll(this.$refs.rwrapper,{
-            click:true
+        this.foodsScroll = new BScroll(this.$refs.foodWrapper,{
+          probeType : 3   
         });
-        this.$nextTick(()=>{this._initScroll();})
-      },
-     _calculateHeight(){
-          let foodList = this.$refs.shoplist; //获取到所有的ref='foodList'的DOM元素
-          let height = 0;
-          this.listHeight.push(height); //第一个元素的高度是0
-          for( let i =0;i<foodList.length;i++ ){
-            let item = foodList[i];
-            height += item.clientHeight;//通过原生DOM中的js获取到li的高度，并且累加
-            this.listHeight.push(height);
-          } 
       },
       onClickLeft(){
         this.$router.go(-1)
@@ -114,6 +84,7 @@ import BScroll from 'better-scroll';
           this.provice = result.data.provice
           console.log(result.data)
           this.lists = result.data.address
+          this.$nextTick(()=>{this._initScroll()})
         })
       },
     },
@@ -144,28 +115,26 @@ import BScroll from 'better-scroll';
     margin-right:0;
     line-height:55px;
   }
-  .lwrapper{
+  .menu-wrapper{
     width:25%;
     overflow:hidden;
     height:623px;
     background:#fff;
     float:left;
   }
-  .rwrapper{
+  .food-wrapper{
     width:75%;
     overflow:hidden;
     height:623px;
     background:#fff;
     float:right;
+    padding-top:20px;
   }
-  .tj{
-    position:absolute;
-    top:40px;
-  }
+
   .right{
-    padding-top:60px;
+    padding-top:20px;
   }
-  .lwrapper .left li{
+  .menu-wrapper .left li{
     height:55px; 
     font-size: 15px;
     color:#222;
@@ -175,20 +144,11 @@ import BScroll from 'better-scroll';
     border-bottom:1px solid #eee;
     border-right:1px solid #eee;
   }
-  .lwrapper .left i.current{
-    position:absolute;
-    width:6px;
-    height:18px;
-    background:#a57a68;
-    border-radius:3px;
-    top:18px;
-    left:15px;
-  }
-  .rwrapper h5{
+  .food-wrapper h5{
     color:#a57a68;
     margin:20px 0 0 15px;
   }
-  .rwrapper h3{
+  .food-wrapper h3{
     margin:17px 0 0 15px;
     color:#222;
     font-size:16px;
@@ -223,11 +183,12 @@ import BScroll from 'better-scroll';
     margin-top:5px;
     color:#888;
   }
-  .current{
+  .menu-wrapper .left li.current{
     position: relative;
     z-index: 10;
     margin-top: -1px;
     background: #fff;
     font-weight: 700;
+    color:#a57a68;
   }   
 </style>

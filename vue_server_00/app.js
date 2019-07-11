@@ -46,6 +46,15 @@ server.get('/index/search',(req,res)=>{
     })
   })  
 })
+server.get('/shopstore',(req,res)=>{
+  var id = req.query.id
+  var sql = `SELECT * FROM dr_shopaddress WHERE spid = ?`
+  pool.query(sql,[id],(err,result)=>{
+    if(err) throw err;
+    console.log(result)
+    res.send(result)
+  })
+})
 server.get('/main',(req,res)=>{
   var sql = `SELECT * FROM dr_carousel`
   pool.query(sql,(err,result)=>{
@@ -67,17 +76,21 @@ server.get('/star/getcomments',(req,res)=>{
   var pageindex = req.query.pageindex
   var ps = 5
   var offset = (pageindex-1)*ps
-  var sql = `SELECT * FROM dr_getcmts LIMIT ?,?`
-  pool.query(sql,[offset,ps,id],(err,result)=>{
+  var sql = `SELECT * FROM dr_getcmts WHERE id = ? LIMIT ?,?`
+  pool.query(sql,[id,offset,ps],(err,result)=>{
     if(err) throw err;
     console.log(result)
     res.send(result)
   })
 })
-server.get('/star/postcomment',(req,res)=>{
-  var id = req.query.id
-  var sql = `UPDATE SET user_name,add_time,content WHERE id = ?`
-  pool.query(sql,[id],(err,result)=>{
+server.post('/star/postcomment',(req,res)=>{
+  var id = req.body.id
+  console.log(id)
+  var user_name = req.body.user_name
+  var add_time = req.body.add_time
+  var content = req.body.content
+  var sql = `UPDATE dr_getcmts SET user_name=?,add_time=?,content=? WHERE id = ?`
+  pool.query(sql,[user_name,add_time,content,id],(err,result)=>{
     if(err) throw err;
     console.log(result)
     res.send(result)
