@@ -1,6 +1,7 @@
 const express = require("express")
 const mysql = require("mysql")
 const cors = require("cors")
+const bodyParser = require('body-parser')
 const session = require("express-session")
 
 var pool = mysql.createPool({
@@ -17,7 +18,9 @@ server.use(cors({
   origin:["http://127.0.0.1:8080","http://localhost:8080"],
   credentials:true
 }))
-
+server.use(bodyParser.urlencoded({
+  extended:false
+}))
 server.use(session({
   secret:"128位字符串",
   resave:true,
@@ -85,7 +88,7 @@ server.get('/star/getcomments',(req,res)=>{
 })
 server.post('/star/postcomment',(req,res)=>{
   var id = req.body.id
-  console.log(id)
+  console.log(req.body.id)
   var user_name = req.body.user_name
   var add_time = req.body.add_time
   var content = req.body.content

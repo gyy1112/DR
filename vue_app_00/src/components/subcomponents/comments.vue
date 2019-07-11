@@ -24,14 +24,14 @@ export default {
       pageIndex: 1,
       comments: [],
       msg: "" 
-    };
+    }
   },
   created() {
     this.getComments();
   },
   methods: {
     getComments() {
-      this.axios.get("star/getcomments/",{params:{
+      this.axios.get("star/getcomments",{params:{
         id:this.id,pageindex:this.pageIndex
       }}).then(result => {
             this.comments = this.comments.concat(result.data);
@@ -43,13 +43,16 @@ export default {
     },
     postComment() {
       if (this.msg.trim().length === 0) {
-        return Toast("评论内容不能为空！");
+        return this.$toast("评论内容不能为空！");
       }
-      this.axios.post("star/postcomment/",{params:{
+      console.log(this.msg)
+      this.axios.post("star/postcomment",{
+        params:{
           id:this.$route.params.id,
           user_name: "匿名用户",
           add_time: Date.now(),
-          content: this.msg.trim()}
+          content: this.msg.trim()
+          }
       }).then(function(result) {
             var cmt = {
               user_name: "匿名用户",
