@@ -109,3 +109,27 @@ server.get('/star/starinfo',(req,res)=>{
     res.send(result)
   })
 })
+server.get('/doughnut/tuijian',(req,res)=>{
+  var sql = `SELECT * FROM dr_doughnut ORDER BY dgtime DESC`
+  pool.query(sql,(err,result)=>{
+    if(err) throw err;
+    console.log(result)
+    res.send(result)
+  })
+})
+server.get('/doughnut/chengnuo',(req,res)=>{
+  var sql = `SELECT * FROM dr_doughnut WHERE judge LIKE '%一生%' ORDER BY dgtime DESC `
+  pool.query(sql,(err,result)=>{
+    if(err) throw err;
+    console.log(result)
+    res.send(result)
+  })
+})
+server.get('/doughnut/yuehui',(req,res)=>{
+  var sql = `SELECT * FROM dr_doughnut WHERE judge LIKE '%爱情%' ORDER BY dgtime DESC `
+  pool.query(sql,(err,result)=>{
+    if(err) throw err;
+    console.log(result)
+    res.send(result)
+  })
+})
