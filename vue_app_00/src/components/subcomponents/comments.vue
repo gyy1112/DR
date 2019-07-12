@@ -41,26 +41,35 @@ export default {
       this.pageIndex++;
       this.getComments();
     },
+    timeChange(dateString, formdate) {
+      if (dateString == null || dateString == '') {
+          return '';
+      }
+      var date = new Date(parseInt(dateString));
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+      var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+      var hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+      var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+      if (formdate == null || formdate == "yyyy-mm-dd HH:mm") {
+          return year + "-" + month + "-" + currentDate + " " + hours + ":" + minutes;
+      }
+    },
     postComment() {
       if (this.msg.trim().length === 0) {
         return this.$toast("评论内容不能为空！");
       }
-      console.log(this.msg)
-      this.axios.post("star/postcomment",{
-        params:{
-          id:this.$route.params.id,
-          user_name: "匿名用户",
-          add_time: Date.now(),
-          content: this.msg.trim()
-          }
-      }).then(function(result) {
+      var  abc=this;
+      this.axios.post("star/postcomment",
+          `id=${this.$route.params.id}&user_name=匿名用户&add_time=${this.timeChange(Date.now())}&content=${this.msg.trim()}`
+      ).then(function(result) {
             var cmt = {
-              user_name: "匿名用户",
-              add_time: Date.now(),
-              content: this.msg.trim()
+              user_name: '匿名用户',
+              add_time: new Date(),
+              content: abc.msg.trim()
             };
-            this.comments.unshift(cmt);
-            this.msg = "";
+            abc.comments.unshift(cmt);
+            abc.msg = "";
         });
     }
   },

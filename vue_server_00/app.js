@@ -54,7 +54,7 @@ server.get('/shopstore',(req,res)=>{
   var sql = `SELECT * FROM dr_shopaddress WHERE spid = ?`
   pool.query(sql,[id],(err,result)=>{
     if(err) throw err;
-    console.log(result)
+ //   console.log(result)
     res.send(result)
   })
 })
@@ -62,7 +62,7 @@ server.get('/main',(req,res)=>{
   var sql = `SELECT * FROM dr_carousel`
   pool.query(sql,(err,result)=>{
     if(err) throw err;
-    console.log(result)
+   // console.log(result)
     res.send(result)
   })
 })
@@ -70,7 +70,7 @@ server.get('/star',(req,res)=>{
   var sql = `SELECT * FROM dr_starinfo`
   pool.query(sql,(err,result)=>{
     if(err) throw err;
-    console.log(result)
+   // console.log(result)
     res.send(result)
   })
 })
@@ -79,21 +79,21 @@ server.get('/star/getcomments',(req,res)=>{
   var pageindex = req.query.pageindex
   var ps = 5
   var offset = (pageindex-1)*ps
-  var sql = `SELECT * FROM dr_getcmts WHERE id = ? LIMIT ?,?`
+  var sql = `SELECT * FROM dr_getcmts WHERE id = ?  ORDER BY add_time DESC LIMIT ?,? `
   pool.query(sql,[id,offset,ps],(err,result)=>{
     if(err) throw err;
-    console.log(result)
+   // console.log(result)
     res.send(result)
   })
 })
 server.post('/star/postcomment',(req,res)=>{
   var id = req.body.id
-  console.log(req.body.id)
   var user_name = req.body.user_name
   var add_time = req.body.add_time
+  console.log(add_time)
   var content = req.body.content
-  var sql = `UPDATE dr_getcmts SET user_name=?,add_time=?,content=? WHERE id = ?`
-  pool.query(sql,[user_name,add_time,content,id],(err,result)=>{
+  var sql = 'INSERT INTO dr_getcmts(id,user_name,add_time,content) VALUES (?,?,?,?)'
+  pool.query(sql,[id,user_name,add_time,content],(err,result)=>{
     if(err) throw err;
     console.log(result)
     res.send(result)
@@ -103,8 +103,9 @@ server.get('/star/starinfo',(req,res)=>{
   var id = req.query.id
   var sql = `SELECT * FROM dr_stardetail WHERE id = ?`
   pool.query(sql,[id],(err,result)=>{
+   
     if(err) throw err;
-    console.log(result)
+ //   console.log(result)
     res.send(result)
   })
 })
