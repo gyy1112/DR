@@ -133,3 +133,36 @@ server.get('/doughnut/yuehui',(req,res)=>{
     res.send(result)
   })
 })
+server.get('/shopcart/zonghe',(req,res)=>{
+  var sql = `SELECT * FROM dr_ringproduct`
+  pool.query(sql,(err,result)=>{
+    if(err) throw err;
+    res.send(result)
+  })
+})
+server.get('/shopcart/renqi',(req,res)=>{
+  var sql = `SELECT * FROM dr_ringproduct ORDER BY saleout DESC`
+  pool.query(sql,(err,result)=>{
+    if(err) throw err;
+    res.send(result)
+  })
+})
+server.get('/shopcart/xinpin',(req,res)=>{
+  var sql = `SELECT * FROM dr_ringproduct ORDER BY onshelfttime DESC`
+  pool.query(sql,(err,result)=>{
+    if(err) throw err;
+    res.send(result)
+  })
+})
+server.get('/shopcart/jiage',(req,res)=>{
+  var state = req.query.state
+  if(state == 'ASC'){
+    var sql = `SELECT * FROM dr_ringproduct ORDER BY price ASC`
+  }else{
+    var sql = `SELECT * FROM dr_ringproduct ORDER BY price DESC`
+  }
+  pool.query(sql,(err,result)=>{
+    if(err) throw err;
+    res.send(result)
+  })
+})

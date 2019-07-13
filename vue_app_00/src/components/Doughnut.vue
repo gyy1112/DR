@@ -231,4 +231,7 @@ export default {
 .imgs img:nth-child(3n-1){
   margin:0 2% 5px 2%; 
 }
+.van-tabbar-item--active{
+    color:#a57a68;
+}
 </style>

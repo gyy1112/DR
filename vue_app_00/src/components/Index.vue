@@ -231,6 +231,9 @@ export default {
     margin-top:30px;
     padding-bottom:40px;
   }
+  .list5 .mint-swipe{
+    padding-bottom:0;
+  }
   .list4 .mint-swipe img,.list5 img{
     width:80%;
     margin-left:10%;

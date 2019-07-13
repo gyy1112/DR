@@ -8,6 +8,7 @@ import Star from './components/Star.vue'
 import StarInfo from './components/star/StarInfo.vue'
 import Doughnut from './components/Doughnut.vue'
 import Shopcart from './components/Shopcart.vue'
+import Product from './components/shopcart/Product.vue'
 import My from './components/My.vue'
 Vue.use(Router)
 // 2 配置路径
@@ -22,6 +23,7 @@ export default new Router({
     {path:'/star/starinfo/:id',component:StarInfo},
     {path:'/doughnut',component:Doughnut},
     {path:'/shopcart',component:Shopcart},
+    {path:'/shopcart/product',component:Product},
     {path:'/my',component:My},
   ]
 })

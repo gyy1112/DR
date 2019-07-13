@@ -212,4 +212,7 @@ export default {
     text-align:center;
     line-height:40px;
   }
+  .van-tabbar-item--active{
+    color:#a57a68 !important;
+  }
 </style>
