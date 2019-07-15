@@ -166,3 +166,12 @@ server.get('/shopcart/jiage',(req,res)=>{
     res.send(result)
   })
 })
+server.get('/shopcart/product',(req,res)=>{
+  var id = req.query.id
+  var sql = `SELECT * FROM dr_ringproductdetail WHERE id = ?`
+  pool.query(sql,[id],(err,result)=>{
+    if(err) throw err;
+    console.log(result)
+    res.send(result)
+  })
+})

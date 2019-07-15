@@ -6,7 +6,7 @@
       <span class="right"><van-icon name="bars" /></span>
     </div>
     <div class="lunbo">
-    <mt-swipe :auto="4000">
+    <mt-swipe :auto="2000">
       <mt-swipe-item v-for="(item,i) of lunbotuList" :key="i">
         <img :src="item.img" alt="">
       </mt-swipe-item>
@@ -58,7 +58,7 @@
       </van-tabbar-item>
       <van-tabbar-item replace to="/doughnut" icon="like-o" name='daugthnut'>甜甜圈
       </van-tabbar-item>
-      <van-tabbar-item replace to="/shopcart" icon="shopping-cart-o" name="shopcart" info="0">购物袋
+      <van-tabbar-item replace to="/shopcart" icon="shopping-cart-o" name="shopcart">购物袋
       </van-tabbar-item>
       <van-tabbar-item replace to="/my" icon="manager" name="my">我的
       </van-tabbar-item>                                                                                  

@@ -12,7 +12,7 @@
       </van-step>
       <van-step>付款完成购买</van-step>
     </van-steps>
-    <div class="cart">
+    <div class="cart" v-show="ishide">
       <van-icon name="gem-o" />
       <p>您的购物袋内暂无商品</p>
       <router-link class="a1" to='my'>立即登录</router-link>
@@ -25,7 +25,7 @@
       </van-tabbar-item>
       <van-tabbar-item replace to="/doughnut" icon="like-o" name='daugthnut'>甜甜圈
       </van-tabbar-item>
-      <van-tabbar-item replace to="/shopcart" icon="shopping-cart-o" name="shopcart" info="0">购物袋
+      <van-tabbar-item replace to="/shopcart" icon="shopping-cart-o" name="shopcart">购物袋
       </van-tabbar-item>
       <van-tabbar-item replace to="/my" icon="manager" name="my">我的
       </van-tabbar-item>
@@ -37,7 +37,8 @@ export default {
   data() {
     return {
       active:'shopcart',
-      step: 0
+      step: 0,
+      ishide:true
     }
   },
   methods: {

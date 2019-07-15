@@ -11,9 +11,11 @@
       <van-tab title="综合" name="综合" @click="tab1">
         <ul class="ringimg">
           <li v-for="(item,i) of tj" :key="i" >
-            <img :src="item.img">
-            <p>{{item.title}}</p>
-            <span>￥{{item.price}}</span>
+            <router-link :to="'/shopcart/product/'+item.id">
+              <img :src="item.img">
+              <p>{{item.title}}</p>
+              <span>￥{{item.price}}</span>
+            </router-link>
           </li>
         </ul>
         <div class="ringbottom">已经到底了...</div>
@@ -21,9 +23,11 @@
       <van-tab title="人气" name="人气" @click="tab2">
         <ul class="ringimg">
           <li v-for="(a,i) of rq" :key="i">
-            <img :src="a.img">
-            <p>{{a.title}}</p>
-            <span>￥{{a.price}}</span>
+            <router-link :to="'/shopcart/product/'+a.id">
+              <img :src="a.img">
+              <p>{{a.title}}</p>
+              <span>￥{{a.price}}</span>
+            </router-link>
           </li>
         </ul>
         <div class="ringbottom">已经到底了...</div>
@@ -31,9 +35,11 @@
       <van-tab title="新品" name="新品" @click="tab3">
         <ul class="ringimg">
           <li v-for="(b,i) of xp" :key="i">
-            <img :src="b.img">
-            <p>{{b.title}}</p>
-            <span>￥{{b.price}}</span>
+            <router-link :to="'/shopcart/product/'+b.id">
+              <img :src="b.img">
+              <p>{{b.title}}</p>
+              <span>￥{{b.price}}</span>
+            </router-link>  
           </li>
         </ul>
         <div class="ringbottom">已经到底了...</div>
@@ -41,9 +47,11 @@
       <van-tab title="价格" v-model="change" name="价格" @click="tab4">
         <ul class="ringimg">
           <li v-for="(c,i) of jg" :key="i">
-            <img :src="c.img">
-            <p>{{c.title}}</p>
-            <span>￥{{c.price}}</span>
+            <router-link :to="'/shopcart/product/'+c.id">
+              <img :src="c.img">
+              <p>{{c.title}}</p>
+              <span>￥{{c.price}}</span>
+            </router-link>  
           </li>
         </ul>
         <div class="ringbottom">已经到底了...</div>
@@ -120,7 +128,7 @@ export default {
 }
 </script>
 <style scoped>
-    .van-nav-bar{
+  .van-nav-bar{
     height:44px;
     line-height:44px;
   }
