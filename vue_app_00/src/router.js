@@ -17,15 +17,16 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {path:'/',redirect:'/index'},
-    {path:'/index',component:Index},
-    {path:'/index/search',component:IndexSearch},
-    {path:'/main',component:Main},
-    {path:'/star',component:Star},
-    {path:'/star/starinfo/:id',component:StarInfo},
-    {path:'/doughnut',component:Doughnut},
-    {path:'/shopcart',component:Shopcart},
-    {path:'/shopcart/product',component:Product},
-    {path:'/shopcart/product/:id',component:ProductInfo},
-    {path:'/my',component:My},
-  ]
+    {path:'/index',name:'index',component:Index},
+    {path:'/index/search',name:'index-search',component:IndexSearch},
+    {path:'/main',name:'main',component:Main},
+    {path:'/star',name:'star',component:Star},
+    {path:'/star/starinfo/:id',name:'starinfo',component:StarInfo},
+    {path:'/doughnut',name:'doughnut',component:Doughnut},
+    {path:'/shopcart',name:'shopcart',component:Shopcart},
+    {path:'/shopcart/product',name:'shopcart-product',component:Product},
+    {path:'/shopcart/product/:id',name:'shopcart-product-id',component:ProductInfo},
+    {path:'/my',name:'my',component:My},
+  ],
 })
+

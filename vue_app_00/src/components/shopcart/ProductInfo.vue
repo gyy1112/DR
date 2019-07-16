@@ -1,6 +1,6 @@
 <template>
   <div>
-     <van-nav-bar title="" left-text="" left-arrow @click-left="onClickLeft">
+     <van-nav-bar :title="productdetail.title" left-text="" left-arrow @click-left="onClickLeft">
       <van-icon name="wap-home" slot="right" @click="onClickRight" />
       <van-icon name="bars" slot="right" />
      </van-nav-bar>
@@ -28,9 +28,7 @@
         </i>
       </div>
       <p>购买数量：
-        <button class="minux">-</button>
-       <input type="number" min=1 max=99 value="1" class="numberbox"></input>
-       <button class="plus">+</button>
+        <numbox @getcount="getSelectedCount"></numbox>
       </p>
       <div class="buycort_delivery">
         <label>配送说明：</label>
@@ -122,31 +120,25 @@
       <div class="txt">专业认证</div>
       <div class="txt">售后保证</div>
     </div>
-    <div class="shopfixed">
-      <a class="a1">
-        <van-icon name="service-o"/>
-        <span>客服</span>
-      </a>
-      <a class="a2">
-        <van-icon name="bag-o" info="0"/>
-        <span>购物袋</span>
-      </a>
-      <div class="right-server">
-        <a class="a3">加入购物袋</a>
-        <a class="a4">立即购买</a>
-      </div>  
-    </div>
+    <van-goods-action>
+      <van-goods-action-icon icon="service-o" text="客服"/>
+      <van-goods-action-icon icon="bag-o" text="购物袋" :info="this.$store.getters.getAllCount"/>
+      <van-goods-action-button type="default" text="加入购物车" @click="addToShopCar"/>
+      <van-goods-action-button type="danger" text="立即购买" />
+    </van-goods-action>
   </div>
 </template>
 <script>
+import numbox from "../subcomponents/goodsinfo_numbox.vue";
 export default {
   data() {
     return {
       id:this.$route.params.id,
       check:false,
-      // selectedCount: 1
+      selectedCount: 1,
       productdetail:{},
-      imgs:[]
+      imgs:[],
+      ballFlag: false,
     }
   },
   created() {
@@ -162,9 +154,9 @@ export default {
     onClickRight(){
       this.$router.push('/main')
     },
-    // getSelectedCount(count) {
-    //   this.selectedCount = count;
-    // }
+    getSelectedCount(count) {
+      this.selectedCount = count;
+    },
     getproductdetail(){
       this.axios.get('shopcart/product/',{params:{ id:this.id}})
       .then(result=>{
@@ -172,8 +164,21 @@ export default {
         this.imgs = this.productdetail.carouselimg.split('&')
         console.log(this.imgs)
       })
-    }
+    },
+    addToShopCar() {
+      var goodsinfo = {
+        id: this.id,
+        count: this.selectedCount,
+        price: this.productdetail.price,
+        selected: true
+      };
+      this.$store.commit("addToCar", goodsinfo);
+      // this.$store.commit("removeFormCar", 74)
+    },
   },
+  components: {
+    numbox
+  }
 }
 </script>
 <style scoped>
@@ -344,60 +349,7 @@ export default {
     text-align:left;
     padding:10px;
   }
-  .shopfixed{
-    border-top:1px solid #eaeaea;
-    background:#fff;
-    width:100%;
-    height:50px;
-    position:fixed;
-    bottom:0;
-    left:0;
-  }
-  .shopfixed .a1,.shopfixed .a2{
-    margin-left:0;
-    width:15%;
-    color:#231815;
-    display:blocl;
-    float:left;
-    text-align:center;
-    
-  }
-  .shopfixed .a1,.shopfixed .a2{
-    border-right:1px solid #eaeaea;
-    margin-top:8px;
-  }
-  .shopfixed .a1 .van-icon-service-o,.shopfixed .a2 .van-icon-bag-o{
-    display:block;
-    font-size:20px;
-  }
-  .shopfixed .a1 span,.shopfixed .a2 span{
-    display:block;
-    font:12px 'yahei';
-    color:#666;
-  }
-  .right-server{
-    width:70%;
-    float:right;
-    height:50px;
-  }
-  .right-server .a3,.right-server .a4{
-    display:block;
-    width:50%;
-    float:left;
-    height:50px;
-    text-align:center;
-    font:15px 'yahei';
-    padding-top:15px;
-  }
-  .right-server .a3{
-    color:#222;
+  .van-button--default{
     background:#ddd;
-  }
-  .right-server .a4{
-    color:#fff;
-    background:#a57a68;
-  }
-  .van-info{
-    right:14px;
   }
 </style>

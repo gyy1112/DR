@@ -175,3 +175,16 @@ server.get('/shopcart/product',(req,res)=>{
     res.send(result)
   })
 })
+server.get('/shopcart/user',(req,res)=>{
+  var id = req.query.id
+  var sql = `SELECT * FROM dr_ringproduct WHERE id IN(?)`
+  pool.query(sql,[id],(err,result)=>{
+    if(err) throw err;
+    console.log(result)
+    res.send(result)
+  })
+})
+server.post('/login',(req,res)=>{
+  var phone = req.body.phone
+  
+})

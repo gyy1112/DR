@@ -9,4 +9,5 @@ module.exports = {
   //     style: true
   //   }, 'vant']
   // ]
+  "ignore":[  './src/lib/mui/js/mui.js']
 }

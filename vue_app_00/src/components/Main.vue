@@ -58,7 +58,7 @@
       </van-tabbar-item>
       <van-tabbar-item replace to="/doughnut" icon="like-o" name='daugthnut'>甜甜圈
       </van-tabbar-item>
-      <van-tabbar-item replace to="/shopcart" icon="shopping-cart-o" name="shopcart">购物袋
+      <van-tabbar-item replace to="/shopcart" icon="shopping-cart-o" name="shopcart" :info="this.$store.getters.getAllCount">购物袋
       </van-tabbar-item>
       <van-tabbar-item replace to="/my" icon="manager" name="my">我的
       </van-tabbar-item>                                                                                  

@@ -463,3 +463,11 @@ INSERT INTO dr_ringproductdetail VALUES
 (72,'DRPARIS52°系列 奢华款','http://127.0.0.1:8080/img/shopdetailImg/carousel1.jpg&http://127.0.0.1:8080/img/shopdetailImg/carousel2.jpg&http://127.0.0.1:8080/img/shopdetailImg/carousel3.jpg&http://127.0.0.1:8080/img/shopdetailImg/carousel4.jpg','DRPARIS52°系列奢华款 30分 H色',27299),
 (73,'ONLY系列 相拥','http://127.0.0.1:8080/img/shopdetailImg/carousel1.jpg&http://127.0.0.1:8080/img/shopdetailImg/carousel2.jpg&http://127.0.0.1:8080/img/shopdetailImg/carousel3.jpg&http://127.0.0.1:8080/img/shopdetailImg/carousel4.jpg','ONLY系列相拥 20分 D色',73899),
 (74,'TRUELOVE系列 浪漫款','http://127.0.0.1:8080/img/shopdetailImg/carousel1.jpg&http://127.0.0.1:8080/img/shopdetailImg/carousel2.jpg&http://127.0.0.1:8080/img/shopdetailImg/carousel3.jpg&http://127.0.0.1:8080/img/shopdetailImg/carousel4.jpg','江若琳同款TRUELOVE系列浪漫款 200分 D色',479999);
+
+CREATE TABLE dr_user(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  phone VARCHAR(32)
+);
+
+INSERT INTO dr_user VALUES
+(NULL,'18687905647');

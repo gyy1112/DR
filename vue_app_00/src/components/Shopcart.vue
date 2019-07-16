@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="shopcar-container">
     <van-nav-bar title="购物袋" left-text="" left-arrow @click-left="onClickLeft">
       <van-icon name="wap-home" slot="right" @click="onClickRight" />
       <van-icon name="bars" slot="right" />
@@ -18,6 +18,39 @@
       <router-link class="a1" to='my'>立即登录</router-link>
       <router-link to='shopcart/product' class="a2">先去逛逛</router-link>
     </div>
+
+    <div class="goods-list" v-show="!ishide">
+      <!-- 商品列表项区域 -->
+      <div class="mui-card" v-for="(item, i) in goodslist" :key="item.id">
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+            <mt-switch v-model="$store.getters.getGoodsSelected[item.id]" @change="selectedChanged(item.id, $store.getters.getGoodsSelected[item.id])"></mt-switch>
+            <img :src="item.img">
+            <div class="info">
+              <h1>{{ item.title }}</h1>
+              <p>
+                <span class="price">￥{{ item.price }}</span>
+                <numbox :initcount="$store.getters.getGoodsCount[item.id]" :goodsid="item.id"></numbox>
+                <a href="#" @click.prevent="remove(item.id, i)" class="delgood">删除</a>
+              </p>
+            </div>
+					</div>
+				</div>
+			</div>
+    </div>
+
+    <!-- 结算区域 -->
+    <div class="mui-card" v-show="!ishide">
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner jiesuan">
+						<div class="left">
+              <p>总计（不含运费）</p>
+              <p>已勾选商品 <span class="red">{{ $store.getters.getGoodsCountAndAmount.count }}</span> 件， 总价 <span class="red">￥{{ $store.getters.getGoodsCountAndAmount.amount }}</span></p>
+            </div>
+             <mt-button type="danger">验证并购买</mt-button>
+					</div>
+				</div>
+		</div>
     <van-tabbar route  v-model="active">
       <van-tabbar-item replace to="/main" icon="wap-home" name='main'>首页
       </van-tabbar-item>
@@ -25,7 +58,7 @@
       </van-tabbar-item>
       <van-tabbar-item replace to="/doughnut" icon="like-o" name='daugthnut'>甜甜圈
       </van-tabbar-item>
-      <van-tabbar-item replace to="/shopcart" icon="shopping-cart-o" name="shopcart">购物袋
+      <van-tabbar-item replace to="/shopcart" icon="shopping-cart-o" name="shopcart" :info="this.$store.getters.getAllCount">购物袋
       </van-tabbar-item>
       <van-tabbar-item replace to="/my" icon="manager" name="my">我的
       </van-tabbar-item>
@@ -33,13 +66,18 @@
   </div>
 </template>
 <script>
+import numbox from "./subcomponents/shopcar_numbox.vue";
 export default {
   data() {
     return {
       active:'shopcart',
       step: 0,
-      ishide:true
+      ishide:true,
+      goodslist: []
     }
+  },
+  created() {
+    this.getGoodsList()
   },
   methods: {
     onClickLeft(){
@@ -48,7 +86,32 @@ export default {
     onClickRight(){
       this.$router.push('/main')
     },
+    getGoodsList() {
+      var idArr = [];
+      this.$store.state.car.forEach(item => idArr.push(item.id));
+      if (idArr.length <= 0) {
+        this.ishide = !this.ishide
+        return;
+      }
+      console.log(idArr)
+      this.axios
+        .get("shopcart/user",{params:{id:idArr}})
+        .then(result => {
+            console.log(result.data)
+            this.goodslist = result.data;
+          });
+    },
+    remove(id, index) {
+      this.goodslist.splice(index, 1);
+      this.$store.commit("removeFormCar", id);
+    },
+    selectedChanged(id, val) {
+      this.$store.commit("updateGoodsSelected", { id, selected: val });
+    }
   },
+  components: {
+    numbox
+  }
 }
 </script>
 <style scoped>
@@ -121,5 +184,45 @@ export default {
     margin:40px auto 0;
     width:156px;
     height:40px;
+  }
+  .shopcar-container {
+    background-color: #eee;
+    overflow: hidden;
+  }  
+  .shopcar-container .goods-list .mui-card-content-inner {
+    display: flex;
+    align-items: center;
+  }
+  .shopcar-container .goods-list img {
+    width: 60px;
+  }
+  .shopcar-container .goods-list h1 {
+    font-size: 13px;
+  }
+  .shopcar-container .goods-list .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }      
+  .shopcar-container .goods-list .info .price {
+    color: red;
+    font-weight: bold;
+    margin-right:5px;
+  }
+  .delgood{
+    margin-left:10px;
+  }
+  .mui-card-content-inner.jiesuan{
+    padding-bottom:40px;
+  }
+  .shopcar-container .jiesuan {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }    
+  .shopcar-container .red {
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
   }
 </style>
