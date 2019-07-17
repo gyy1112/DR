@@ -1,35 +1,37 @@
 <template>
   <div>
-    <van-nav-bar class="icon" title="注册/登录" left-text="" left-arrow @click-left="onClickLeft">
-      <van-icon name="wap-home" slot="right" @click="onClickRight" />
-      <van-icon name="bars" slot="right" />
-    </van-nav-bar>
-    <div class="user-container">
-      <van-image lazy-load src="http://127.0.0.1:8080/img/mainImg/11.jpg" class="pic"/>
-      <div class="userinfo">
-        <input type="text" placeholder="请输入手机号" v-model="phone">
-        <input type="text" placeholder="请输入验证码" class="code" v-model="sms">
-        <a href="javascript:;">获取短信验证码</a>
-      </div>
-      <div class="agree">
-        <van-icon name="passed" /> 同意 <a>《注册协议》</a> 和 <a>《隐私条款》</a>
-      </div>
-      <p class="loginwd">
-        使用 
-        <a>密码登录</a>
-        <i>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</i>
-        <a>获取语音验证码</a>
-      </p>
-      <van-button type="" size="large" @click="login">登录</van-button>
-      <div class="otherlogin">
-        <p>其他登录方式<van-icon name="arrow-up" :class="{a:active == true}" @click="check"/></p>
-        <div v-show="active">
-          <img src="../../public/img/indexImg/wb.png">
-          <img src="../../public/img/indexImg/qq.png">
-          <img src="../../public/img/indexImg/zfb.png">
+    <div>
+      <van-nav-bar class="icon" title="注册/登录" left-text="" left-arrow @click-left="onClickLeft">
+        <van-icon name="wap-home" slot="right" @click="onClickRight" />
+        <van-icon name="bars" slot="right" />
+      </van-nav-bar>
+      <div class="user-container">
+        <van-image lazy-load src="http://127.0.0.1:8080/img/mainImg/11.jpg" class="pic"/>
+        <div class="userinfo">
+          <input type="text" placeholder="请输入手机号" v-model="phone">
+          <input type="text" placeholder="请输入验证码" class="code" v-model="sms">
+          <a href="javascript:;">获取短信验证码</a>
+        </div>
+        <div class="agree">
+          <van-icon name="passed" /> 同意 <a>《注册协议》</a> 和 <a>《隐私条款》</a>
+        </div>
+        <p class="loginwd">
+          使用 
+          <a>密码登录</a>
+          <i>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</i>
+          <a>获取语音验证码</a>
+        </p>
+        <van-button type="" size="large" @click="login">登录</van-button>
+        <div class="otherlogin">
+          <p>其他登录方式<van-icon name="arrow-up" :class="{a:active == true}" @click="check"/></p>
+          <div v-show="active">
+            <img src="../../public/img/indexImg/wb.png">
+            <img src="../../public/img/indexImg/qq.png">
+            <img src="../../public/img/indexImg/zfb.png">
+          </div>
         </div>
       </div>
-    </div>
+    </div>  
   </div>
 </template>
 <script>
@@ -61,7 +63,9 @@ export default {
         return
       }
       this.axios.post('login',`phone=${this.phone}&sms=${this.sms}`).then(result=>{
-        console.log(result)
+        console.log(result.data)
+        localStorage.setItem('phone',this.phone)
+        this.$router.push({name:'user'})
       })
     }
   },

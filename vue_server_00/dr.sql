@@ -466,8 +466,29 @@ INSERT INTO dr_ringproductdetail VALUES
 
 CREATE TABLE dr_user(
   id INT PRIMARY KEY AUTO_INCREMENT,
-  phone VARCHAR(32)
+  phone VARCHAR(32),
+  sms VARCHAR(16)
 );
 
 INSERT INTO dr_user VALUES
-(NULL,'18687905647');
+(NULL,'18687905647','123456'),
+(NULL,'12345678901','123456');
+
+CREATE TABLE dr_usercart(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  userid INT,
+  productid INT,
+  count INT,
+  price DECIMAL(10,2),
+  selected BOOLEAN
+);
+
+INSERT INTO dr_usercart VALUES
+(NULL,1,17,1,5729,'true'),
+(NULL,1,26,1,8089,'true');
+
+CREATE TABLE dr_usersave(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  userid INT,
+  saveid INT
+);

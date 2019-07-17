@@ -74,7 +74,7 @@
         </ul>
       </van-tab>
     </van-tabs>
-    <van-tabbar route  v-model="active">
+    <van-tabbar route >
       <van-tabbar-item replace to="/main" icon="wap-home" name='main'>首页
       </van-tabbar-item>
       <van-tabbar-item replace to="/star" icon="star-o" name='star'>明星
@@ -99,8 +99,7 @@ export default {
       imgs2:[],
       list3:[],
       imgs3:[],
-      check:true,
-      active:'甜甜圈'
+      check:true
     }
   },
   created() {

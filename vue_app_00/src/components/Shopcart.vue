@@ -51,7 +51,7 @@
 					</div>
 				</div>
 		</div>
-    <van-tabbar route  v-model="active">
+    <van-tabbar route>
       <van-tabbar-item replace to="/main" icon="wap-home" name='main'>首页
       </van-tabbar-item>
       <van-tabbar-item replace to="/star" icon="star-o" name='star'>明星
@@ -70,7 +70,6 @@ import numbox from "./subcomponents/shopcar_numbox.vue";
 export default {
   data() {
     return {
-      active:'shopcart',
       step: 0,
       ishide:true,
       goodslist: []
@@ -87,13 +86,14 @@ export default {
       this.$router.push('/main')
     },
     getGoodsList() {
+      let phone = localStorage.getItem('phone')
+      if(phone !=null){this.ishide = !this.ishide}
       var idArr = [];
       this.$store.state.car.forEach(item => idArr.push(item.id));
       if (idArr.length <= 0) {
-        this.ishide = !this.ishide
-        return;
+        this.$toast('购物车没有任何东西,请先逛逛')     
+        this.$router.push({name:'shopcart-product'})
       }
-      console.log(idArr)
       this.axios
         .get("shopcart/user",{params:{id:idArr}})
         .then(result => {

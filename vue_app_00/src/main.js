@@ -16,6 +16,7 @@ import './lib/mui/css/mui.css'
 // 导入格式化时间的插件
 import moment from 'moment'
 // 定义全局的过滤器
+
 Vue.filter('dateFormat', function (dataStr, pattern = "YYYY-MM-DD HH:mm:ss") {
   return moment(dataStr).format(pattern)
 })  
@@ -122,15 +123,15 @@ new Vue({
 }).$mount('#app')
 
 router.beforeEach((to, from, next) => {
-  let phone = localStorage.getItem(phone)
+  let phone = localStorage.getItem('phone')
   if (to.name == 'starinfo'||to.name == 'shopcart-product-id') {
-      if(phone == undefined){
+      if(phone ==null){
         router.push({ name: 'my' })
       }
   }
   if (to.name === 'my') { 
-    if (phone != undefined) {
-      router.push({ name: 'main' });
+    if (phone != null) {
+      router.push({ name: 'user' });
     }
   }
   next();

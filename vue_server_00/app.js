@@ -186,5 +186,16 @@ server.get('/shopcart/user',(req,res)=>{
 })
 server.post('/login',(req,res)=>{
   var phone = req.body.phone
-  
+  var sms = req.body.sms
+  var sql = `SELECT * FROM dr_user WHERE phone = ? AND sms = ?`
+  pool.query(sql,[phone,sms],(err,result)=>{
+    if(result.length>0){
+      res.send('1')
+    }else{
+      var sql = `INSERT INTO dr_user(phone,sms) VALUES (?,?)`
+      pool.query(sql,[phone,sms],(err,result)=>{
+        res.send('0')
+      })
+    }
+  })
 })

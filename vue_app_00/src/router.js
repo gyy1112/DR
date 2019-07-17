@@ -11,6 +11,7 @@ import Shopcart from './components/Shopcart.vue'
 import Product from './components/shopcart/Product.vue'
 import ProductInfo from './components/shopcart/ProductInfo.vue'
 import My from './components/My.vue'
+import User from './components/login/User.vue'
 Vue.use(Router)
 // 2 配置路径
 
@@ -27,6 +28,7 @@ export default new Router({
     {path:'/shopcart/product',name:'shopcart-product',component:Product},
     {path:'/shopcart/product/:id',name:'shopcart-product-id',component:ProductInfo},
     {path:'/my',name:'my',component:My},
+    {path:'/user',name:'user',component:User},
   ],
 })
 
