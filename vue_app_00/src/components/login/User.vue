@@ -88,11 +88,21 @@ export default {
       ]
     }
   },
+  created() {
+    this.getcart()
+  },
   methods: {
     loginout(){
       localStorage.removeItem('phone')
       localStorage.removeItem('car')  
       this.$router.push({name:'my'})
+    },
+    getcart(){
+      var phone = localStorage.getItem('phone')
+      this.axios.get('usercart',{params:{phone:phone}}).then(result=>{
+        localStorage.setItem('car',result.data)
+        console.log(result.data[0].count)
+      })
     }
   },
 }

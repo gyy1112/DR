@@ -25,7 +25,7 @@ import axios from "./axios";
 // 引入vuex
 import Vuex from 'vuex'
 Vue.use(Vuex) 
-var car = JSON.parse(localStorage.getItem('car') || '[]')
+var car = localStorage.getItem('car')
 var store = new Vuex.Store({
   state: { 
     isLogin:false,

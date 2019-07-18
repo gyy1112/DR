@@ -199,3 +199,15 @@ server.post('/login',(req,res)=>{
     }
   })
 })
+server.get('/usercart',(req,res)=>{
+  var phone = req.query.phone
+  var sql = `SELECT * FROM dr_user Where phone = ?`
+  pool.query(sql,[phone],(err,result)=>{
+    var userid = result[0].id
+    console.log(result[0].id)
+    var sql = `SELECT * FROM dr_usercart Where userid = ?`
+    pool.query(sql,[userid],(err,result)=>{
+      res.send(result)
+    })
+  }) 
+})
