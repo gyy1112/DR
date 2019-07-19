@@ -484,8 +484,8 @@ CREATE TABLE dr_usercart(
 );
 
 INSERT INTO dr_usercart VALUES
-(NULL,1,17,1,5729,'true'),
-(NULL,1,26,1,8089,'true');
+(NULL,1,17,1,5729,true),
+(NULL,1,26,1,8089,true);
 
 CREATE TABLE dr_usersave(
   id INT PRIMARY KEY AUTO_INCREMENT,

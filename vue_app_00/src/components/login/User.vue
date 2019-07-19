@@ -96,12 +96,15 @@ export default {
       localStorage.removeItem('phone')
       localStorage.removeItem('car')  
       this.$router.push({name:'my'})
+      // for(var item of this.$store.car){
+      //   item.count = 0
+      // }
     },
     getcart(){
       var phone = localStorage.getItem('phone')
       this.axios.get('usercart',{params:{phone:phone}}).then(result=>{
-        localStorage.setItem('car',result.data)
-        console.log(result.data[0].count)
+        localStorage.setItem('car',JSON.stringify(result.data))
+        console.log(localStorage.getItem('car'))
       })
     }
   },

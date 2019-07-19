@@ -25,10 +25,11 @@ import axios from "./axios";
 // 引入vuex
 import Vuex from 'vuex'
 Vue.use(Vuex) 
-var car = localStorage.getItem('car')
+var  car=[];
+ car = JSON.parse(localStorage.getItem('car'))||[]
+ console.log(car)
 var store = new Vuex.Store({
   state: { 
-    isLogin:false,
     car: car 
     // { id:商品的id, count: 要购买的数量, price: 商品的单价，selected: false  }
   },
@@ -77,7 +78,8 @@ var store = new Vuex.Store({
   getters: { 
     getAllCount(state) {
       var c = 0;
-      state.car.forEach(item => {
+      console.log(state.car)
+     state.car.forEach(item => {
         c += item.count
       })
       return c
@@ -135,4 +137,4 @@ router.beforeEach((to, from, next) => {
     }
   }
   next();
-});
+})

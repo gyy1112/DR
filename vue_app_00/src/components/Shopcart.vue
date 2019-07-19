@@ -12,7 +12,7 @@
       </van-step>
       <van-step>付款完成购买</van-step>
     </van-steps>
-    <div class="cart" v-show="ishide">
+    <div class="cart" v-show="ishide == true">
       <van-icon name="gem-o" />
       <p>您的购物袋内暂无商品</p>
       <router-link class="a1" to='my'>立即登录</router-link>
@@ -87,8 +87,13 @@ export default {
     },
     getGoodsList() {
       let phone = localStorage.getItem('phone')
-      if(phone !=null){this.ishide = !this.ishide}
+      if(phone == null){
+        return;
+      }else{
+        this.ishide = !this
+      }
       var idArr = [];
+     // console.log(this.$store.state.car)
       this.$store.state.car.forEach(item => idArr.push(item.id));
       if (idArr.length <= 0) {
         this.$toast('购物车没有任何东西,请先逛逛')     

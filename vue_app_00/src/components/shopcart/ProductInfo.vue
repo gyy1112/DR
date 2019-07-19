@@ -124,7 +124,7 @@
       <van-goods-action-icon icon="service-o" text="客服"/>
       <van-goods-action-icon icon="bag-o" text="购物袋" :info="this.$store.getters.getAllCount"/>
       <van-goods-action-button type="default" text="加入购物车" @click="addToShopCar"/>
-      <van-goods-action-button type="danger" text="立即购买" />
+      <van-goods-action-button type="danger" text="立即购买" @click="buyshopcart"/>
     </van-goods-action>
   </div>
 </template>
@@ -145,6 +145,11 @@ export default {
     this.getproductdetail()
   },
   methods: {
+    beforeRouteLeave (to, from, next) {
+      if(from.name === 'shopcart'){
+        console.log(111)
+      }
+    },
     saveproduct(){
       this.check = !this.check
     },
@@ -153,6 +158,9 @@ export default {
     },
     onClickRight(){
       this.$router.push('/main')
+    },
+    buyshopcart(){
+      this.$router.push('/shopcart')
     },
     getSelectedCount(count) {
       this.selectedCount = count;
@@ -170,7 +178,7 @@ export default {
         id: this.id,
         count: this.selectedCount,
         price: this.productdetail.price,
-        selected: true
+        selected: 1
       };
       this.$store.commit("addToCar", goodsinfo);
       // this.$store.commit("removeFormCar", 74)
