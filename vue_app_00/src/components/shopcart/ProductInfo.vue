@@ -144,12 +144,17 @@ export default {
   created() {
     this.getproductdetail()
   },
+  beforeRouteLeave (to, from, next) {
+    if(from.name === 'shopcart-product-id'){
+      var car = this.$store.state.car
+      this.axios.get('insertshopcart',{params:{car:car}
+      }).then(res=>{
+        console.log('更新成功')
+      })
+    }
+    next()
+  },
   methods: {
-    beforeRouteLeave (to, from, next) {
-      if(from.name === 'shopcart'){
-        console.log(111)
-      }
-    },
     saveproduct(){
       this.check = !this.check
     },
@@ -182,7 +187,7 @@ export default {
       };
       this.$store.commit("addToCar", goodsinfo);
       // this.$store.commit("removeFormCar", 74)
-    },
+    }
   },
   components: {
     numbox

@@ -104,7 +104,6 @@ export default {
       var phone = localStorage.getItem('phone')
       this.axios.get('usercart',{params:{phone:phone}}).then(result=>{
         localStorage.setItem('car',JSON.stringify(result.data))
-        console.log(localStorage.getItem('car'))
       })
     }
   },

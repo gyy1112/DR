@@ -27,7 +27,6 @@ import Vuex from 'vuex'
 Vue.use(Vuex) 
 var  car=[];
  car = JSON.parse(localStorage.getItem('car'))||[]
- console.log(car)
 var store = new Vuex.Store({
   state: { 
     car: car 
@@ -78,7 +77,6 @@ var store = new Vuex.Store({
   getters: { 
     getAllCount(state) {
       var c = 0;
-      console.log(state.car)
      state.car.forEach(item => {
         c += item.count
       })

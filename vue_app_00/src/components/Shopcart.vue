@@ -45,7 +45,7 @@
 					<div class="mui-card-content-inner jiesuan">
 						<div class="left">
               <p>总计（不含运费）</p>
-              <p>已勾选商品 <span class="red">{{ $store.getters.getGoodsCountAndAmount.count }}</span> 件， 总价 <span class="red">￥{{ $store.getters.getGoodsCountAndAmount.amount }}</span></p>
+              <p>已勾选商品 <span class="red">{{ $store.getters.getGoodsCountAndAmount.count }}</span> 件， 总价<br><span class="red">￥{{ $store.getters.getGoodsCountAndAmount.amount }}</span></p>
             </div>
              <mt-button type="danger">验证并购买</mt-button>
 					</div>
@@ -72,11 +72,25 @@ export default {
     return {
       step: 0,
       ishide:true,
-      goodslist: []
+      goodslist: [],
     }
   },
   created() {
     this.getGoodsList()
+  },
+  beforeRouteLeave (to, from, next) {
+    var phone = localStorage.getItem('phone')
+    if(phone != null){
+      if(from.name === 'shopcart'){
+        var car = this.$store.state.car
+        console.log(car[0])
+        this.axios.get('insertshopcart',{params:{car:car,phone:phone}
+        }).then(res=>{
+          console.log(result)
+        })
+      }
+      next()
+    }
   },
   methods: {
     onClickLeft(){
@@ -93,7 +107,6 @@ export default {
         this.ishide = !this
       }
       var idArr = [];
-     // console.log(this.$store.state.car)
       this.$store.state.car.forEach(item => idArr.push(item.id));
       if (idArr.length <= 0) {
         this.$toast('购物车没有任何东西,请先逛逛')     
@@ -102,7 +115,6 @@ export default {
       this.axios
         .get("shopcart/user",{params:{id:idArr}})
         .then(result => {
-            console.log(result.data)
             this.goodslist = result.data;
           });
     },

@@ -211,3 +211,28 @@ server.get('/usercart',(req,res)=>{
     })
   }) 
 })
+server.get('/insertshopcart',(req,res)=>{
+  var car = JSON.parse(req.query.car)
+  var phone = req.query.phone
+  var sql = `SELECT id FROM dr_user WHERE phone = ?`
+  pool.query(sql,[phone],(err,result)=>{
+    var userid = result.id
+    var sql = 'DELETE FROM dr_usercart'
+    pool.query(sql,(err,result)=>{
+      if(err) throw err;
+      for(var i=0;i<car.length;i++){
+        var productid = car[i].id
+        var count = car[i].count
+        var price = car[i].price
+        var selected = car[i].selected
+        console.log(productid,count,price,selected,user)
+        var sql = `INSERT INTO dr_usercart(userid,productid,count,price,selected) VALUES (?,?,?,?,?)`
+        pool.query(sql,[userid,productid,count,price,selected],(err,result)=>{
+          if(err) throw err;
+          console.log(result)
+          res.send(result)
+        })
+      }
+    })
+  })
+})
