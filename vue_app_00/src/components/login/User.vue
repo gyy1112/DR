@@ -56,7 +56,7 @@
           </van-grid-item>
         </van-grid>  
       </div>
-      <van-tabbar route >
+      <van-tabbar route v-model="active">
         <van-tabbar-item replace to="/main" icon="wap-home" name='main'>首页
         </van-tabbar-item>
         <van-tabbar-item replace to="/star" icon="star-o" name='star'>明星
@@ -85,7 +85,8 @@ export default {
         {img:'http://127.0.0.1:8080/img/userImg/14.png',title:'资讯中心'},
         {img:'http://127.0.0.1:8080/img/userImg/15.png',title:'意见反馈'},
         {img:'http://127.0.0.1:8080/img/userImg/16.png',title:'客服'},
-      ]
+      ],
+      active:'my'
     }
   },
   created() {

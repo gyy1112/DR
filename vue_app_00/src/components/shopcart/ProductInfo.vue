@@ -144,17 +144,8 @@ export default {
   created() {
     this.getproductdetail()
   },
-  beforeRouteLeave (to, from, next) {
-    if(from.name === 'shopcart-product-id'){
-      var car = this.$store.state.car
-      this.axios.get('insertshopcart',{params:{car:car}
-      }).then(res=>{
-        console.log('更新成功')
-      })
-    }
-    next()
-  },
   methods: {
+    
     saveproduct(){
       this.check = !this.check
     },
@@ -180,13 +171,21 @@ export default {
     },
     addToShopCar() {
       var goodsinfo = {
-        id: this.id,
+        productid: this.id,
         count: this.selectedCount,
         price: this.productdetail.price,
         selected: 1
       };
       this.$store.commit("addToCar", goodsinfo);
-      // this.$store.commit("removeFormCar", 74)
+      var phone = localStorage.getItem('phone')
+      var count = this.$store.getters.getGoodsCount[this.id]
+      var productid = this.id
+      var price = this.productdetail.price
+      this.axios.get('insertusercart',{params:{
+        phone:phone,productid:productid,count:count,price:price
+      }}).then(res=>{
+        console.log('用户购物车更新完成')
+      })
     }
   },
   components: {

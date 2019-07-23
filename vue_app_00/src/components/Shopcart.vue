@@ -47,7 +47,7 @@
               <p>总计（不含运费）</p>
               <p>已勾选商品 <span class="red">{{ $store.getters.getGoodsCountAndAmount.count }}</span> 件， 总价<br><span class="red">￥{{ $store.getters.getGoodsCountAndAmount.amount }}</span></p>
             </div>
-             <mt-button type="danger">验证并购买</mt-button>
+             <mt-button type="danger" @click='ringproduct'>验证并购买</mt-button>
 					</div>
 				</div>
 		</div>
@@ -78,26 +78,15 @@ export default {
   created() {
     this.getGoodsList()
   },
-  beforeRouteLeave (to, from, next) {
-    var phone = localStorage.getItem('phone')
-    if(phone != null){
-      if(from.name === 'shopcart'){
-        var car = this.$store.state.car
-        console.log(car[0])
-        this.axios.get('insertshopcart',{params:{car:car,phone:phone}
-        }).then(res=>{
-          console.log(result)
-        })
-      }
-      next()
-    }
-  },
   methods: {
     onClickLeft(){
       this.$router.go(-1)
     },
     onClickRight(){
       this.$router.push('/main')
+    },
+    ringproduct(){
+      this.$router.push('/shopcart/product')
     },
     getGoodsList() {
       let phone = localStorage.getItem('phone')
@@ -107,7 +96,7 @@ export default {
         this.ishide = !this
       }
       var idArr = [];
-      this.$store.state.car.forEach(item => idArr.push(item.id));
+      this.$store.state.car.forEach(item => idArr.push(item.productid));
       if (idArr.length <= 0) {
         this.$toast('购物车没有任何东西,请先逛逛')     
         this.$router.push({name:'shopcart-product'})
@@ -121,6 +110,13 @@ export default {
     remove(id, index) {
       this.goodslist.splice(index, 1);
       this.$store.commit("removeFormCar", id);
+      var phone = localStorage.getItem('phone')
+      var productid = id 
+      this.axios.get('delusercart',{params:{
+        phone:phone,productid:productid
+      }}).then(res=>{
+        console.log('删除成功')
+      })
     },
     selectedChanged(id, val) {
       this.$store.commit("updateGoodsSelected", { id, selected: val });

@@ -480,12 +480,12 @@ CREATE TABLE dr_usercart(
   productid INT,
   count INT,
   price DECIMAL(10,2),
-  selected BOOLEAN
+  selected tinyint(1) NOT NULL DEFAULT 1
 );
 
 INSERT INTO dr_usercart VALUES
-(NULL,1,17,1,5729,true),
-(NULL,1,26,1,8089,true);
+(NULL,1,17,1,5729,DEFAULT),
+(NULL,1,26,1,8089,DEFAULT);
 
 CREATE TABLE dr_usersave(
   id INT PRIMARY KEY AUTO_INCREMENT,

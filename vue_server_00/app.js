@@ -205,34 +205,57 @@ server.get('/usercart',(req,res)=>{
   pool.query(sql,[phone],(err,result)=>{
     var userid = result[0].id
     console.log(result[0].id)
-    var sql = `SELECT * FROM dr_usercart Where userid = ?`
+    var sql = `SELECT productid,count,price,selected FROM dr_usercart Where userid = ?`
     pool.query(sql,[userid],(err,result)=>{
+      console.log(result)
       res.send(result)
     })
   }) 
 })
-server.get('/insertshopcart',(req,res)=>{
-  var car = JSON.parse(req.query.car)
+server.get('/updusercarts',(req,res)=>{
+  var phone = req.query.phone
+  var productid = req.query.productid
+  var count = req.query.count
+  var sql = `SELECT id FROM dr_user WHERE phone = ?`
+  pool.query(sql,[phone],(err,result)=>{
+    var userid = result[0].id
+    var sql = `UPDATE dr_usercart SET count = ? WHERE userid = ? AND productid = ?`
+    pool.query(sql,[count,userid,productid],(err,result)=>{
+      if(err) throw err;
+      console.log(result)
+      res.send(result)
+    })
+  })  
+})
+server.get('/delusercart',(req,res)=>{
   var phone = req.query.phone
   var sql = `SELECT id FROM dr_user WHERE phone = ?`
   pool.query(sql,[phone],(err,result)=>{
-    var userid = result.id
-    var sql = 'DELETE FROM dr_usercart'
-    pool.query(sql,(err,result)=>{
+    var userid = result[0].id
+    var productid = req.query.productid
+    var sql = 'DELETE FROM dr_usercart WHERE userid = ? AND productid = ?'
+    pool.query(sql,[userid,productid],(err,result)=>{
       if(err) throw err;
-      for(var i=0;i<car.length;i++){
-        var productid = car[i].id
-        var count = car[i].count
-        var price = car[i].price
-        var selected = car[i].selected
-        console.log(productid,count,price,selected,user)
-        var sql = `INSERT INTO dr_usercart(userid,productid,count,price,selected) VALUES (?,?,?,?,?)`
-        pool.query(sql,[userid,productid,count,price,selected],(err,result)=>{
-          if(err) throw err;
-          console.log(result)
-          res.send(result)
-        })
-      }
+      console.log('删除成功')
+    })
+  })
+})
+server.get('/insertusercart',(req,res)=>{
+  var phone = req.query.phone
+  var sql = `SELECT id FROM dr_user WHERE phone = ?`
+  pool.query(sql,[phone],(err,result)=>{
+    var userid = result[0].id
+    var productid = req.query.productid
+    var sql = 'DELETE FROM dr_usercart WHERE userid = ? AND productid = ?'
+    pool.query(sql,(err,result)=>{
+      var count = req.query.count
+      var price = req.query.price
+      var sql = `INSERT INTO dr_usercart(userid,productid,count,price) VALUES (?,?,?,?)`
+      pool.query(sql,[userid,productid,count,price],(err,result)=>{
+        if(err) throw err;
+        console.log('插入成功')
+        res.send(result)
+      })
     })
   })
 })

@@ -30,13 +30,13 @@ var  car=[];
 var store = new Vuex.Store({
   state: { 
     car: car 
-    // { id:商品的id, count: 要购买的数量, price: 商品的单价，selected: false  }
+    // { productid:商品的id, count: 要购买的数量, price: 商品的单价，selected: false  }
   },
   mutations: {
     addToCar(state, goodsinfo) {
       var flag = false
       state.car.some(item => {
-        if (item.id == goodsinfo.id) {
+        if (item.productid == goodsinfo.productid) {
           item.count += parseInt(goodsinfo.count)
           flag = true
           return true
@@ -49,7 +49,7 @@ var store = new Vuex.Store({
     },
     updateGoodsInfo(state, goodsinfo) {
       state.car.some(item => {
-        if (item.id == goodsinfo.id) {
+        if (item.productid == goodsinfo.productid) {
           item.count = parseInt(goodsinfo.count)
           return true
         }
@@ -58,7 +58,7 @@ var store = new Vuex.Store({
     },
     removeFormCar(state, id) {
       state.car.some((item, i) => {
-        if (item.id == id) {
+        if (item.productid == id) {
           state.car.splice(i, 1)
           return true;
         }
@@ -67,7 +67,7 @@ var store = new Vuex.Store({
     },
     updateGoodsSelected(state, info) {
       state.car.some(item => {
-        if (item.id == info.id) {
+        if (item.productid == info.id) {
           item.selected = info.selected
         }
       })
@@ -85,14 +85,14 @@ var store = new Vuex.Store({
     getGoodsCount(state) {
       var o = {}
       state.car.forEach(item => {
-        o[item.id] = item.count
+        o[item.productid] = item.count
       })
       return o
     },
     getGoodsSelected(state) {
       var o = {}
       state.car.forEach(item => {
-        o[item.id] = item.selected
+        o[item.productid] = item.selected
       })
       return o
     },
@@ -129,7 +129,7 @@ router.beforeEach((to, from, next) => {
         router.push({ name: 'my' })
       }
   }
-  if (to.name === 'my') { 
+  if (to.name == 'my') { 
     if (phone != null) {
       router.push({ name: 'user' });
     }
